@@ -1,13 +1,17 @@
-import HeroSection from "./_components/home/HeroSection";
-import SkillsHighlight from "./_components/home/SkillsHighlight";
-import LatestProjects from "./_components/home/LatestProjects";
+import { Hero } from "./_components/Hero";
+import { Introduction } from "./_components/Introduction";
+import { Achievements } from "./_components/Achievements";
+import { Skills } from "./_components/Skills";
+import { CTASection } from "./_components/CTASection";
 
-export default function Home() {
+export default function HomePage() {
 	return (
-		<div className="min-h-screen">
-			<HeroSection />
-			<SkillsHighlight />
-			<LatestProjects />
-		</div>
+		<main className="min-h-screen">
+			<Hero />
+			<Introduction />
+			<Achievements />
+			<Skills />
+			<CTASection />
+		</main>
 	);
 }

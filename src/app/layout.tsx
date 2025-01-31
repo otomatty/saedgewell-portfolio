@@ -1,43 +1,39 @@
 import type { Metadata } from "next";
-import type { ReactNode } from "react";
-import { Geist, Geist_Mono } from "next/font/google";
-import Header from "@/components/layout/Header";
-import Footer from "@/components/layout/Footer";
 import "./globals.css";
-import { Toaster } from "@/components/ui/toaster";
-import { Providers } from "./providers";
-
-const geistSans = Geist({
-	variable: "--font-geist-sans",
-	subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-	variable: "--font-geist-mono",
-	subsets: ["latin"],
-});
+import { Header } from "@/app/_layout/Header";
+import { Footer } from "@/app/_layout/Footer";
+import { Noto_Sans_JP } from "next/font/google";
+const notoSansJP = Noto_Sans_JP({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-	title: "My Portfolio",
-	description: "Welcome to my portfolio website",
+	title: {
+		default: "Saedgewell Portfolio",
+		template: "%s | Saedgewell Portfolio",
+	},
+	description: "プロダクトエンジニア 菅井瑛正のポートフォリオサイトです。",
+	keywords: [
+		"プロダクトエンジニア",
+		"Web開発",
+		"Next.js",
+		"React",
+		"TypeScript",
+		"ポートフォリオ",
+	],
 };
 
 export default function RootLayout({
 	children,
-}: Readonly<{
-	children: ReactNode;
-}>) {
+}: {
+	children: React.ReactNode;
+}) {
 	return (
 		<html lang="ja" suppressHydrationWarning>
-			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
-			>
-				<Providers>
+			<body className={notoSansJP.className}>
+				<div className="relative min-h-screen flex flex-col">
 					<Header />
-					<main className="flex-grow">{children}</main>
+					<main className="flex-1">{children}</main>
 					<Footer />
-					<Toaster />
-				</Providers>
+				</div>
 			</body>
 		</html>
 	);
