@@ -1,27 +1,16 @@
-import type { Metadata } from "next";
 import "./globals.css";
-import { Header } from "@/app/_layout/Header";
-import { Footer } from "@/app/_layout/Footer";
+import "highlight.js/styles/github-dark.css";
 import { Noto_Sans_JP } from "next/font/google";
-const notoSansJP = Noto_Sans_JP({ subsets: ["latin"] });
+import { Toaster } from "@/components/ui/toaster";
 
-export const metadata: Metadata = {
-	title: {
-		default: "Saedgewell Portfolio",
-		template: "%s | Saedgewell Portfolio",
-	},
-	description: "プロダクトエンジニア 菅井瑛正のポートフォリオサイトです。",
-	keywords: [
-		"プロダクトエンジニア",
-		"Web開発",
-		"Next.js",
-		"React",
-		"TypeScript",
-		"ポートフォリオ",
-	],
-};
+const notoSansJP = Noto_Sans_JP({
+	subsets: ["latin"],
+	weight: ["400", "500", "700"],
+	preload: true,
+	display: "swap",
+});
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
 }: {
 	children: React.ReactNode;
@@ -30,9 +19,8 @@ export default function RootLayout({
 		<html lang="ja" suppressHydrationWarning>
 			<body className={notoSansJP.className}>
 				<div className="relative min-h-screen flex flex-col">
-					<Header />
-					<main className="flex-1">{children}</main>
-					<Footer />
+					{children}
+					<Toaster />
 				</div>
 			</body>
 		</html>

@@ -2,7 +2,7 @@
 
 import { generateGeminiResponse } from "@/lib/gemini/client";
 import { generateDescriptionPrompt } from "@/lib/gemini/prompts/description";
-import type { ProjectType } from "@/app/services/estimate/_types/estimate";
+import type { ProjectType } from "@/app/(public)/services/estimate/_types/estimate";
 
 export interface DescriptionExample {
 	title: string;

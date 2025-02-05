@@ -1,4 +1,4 @@
-import { clsx, type ClassValue } from "clsx";
+import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -19,4 +19,15 @@ export function formatDate(date: string): string {
 		month: "long",
 		day: "numeric",
 	});
+}
+
+export function convertToCamelCase<T>(obj: Record<string, any>): T {
+	const newObj: Record<string, any> = {};
+
+	for (const key of Object.keys(obj)) {
+		const newKey = key.replace(/_([a-z])/g, (g) => g[1].toUpperCase());
+		newObj[newKey] = obj[key];
+	}
+
+	return newObj as T;
 }

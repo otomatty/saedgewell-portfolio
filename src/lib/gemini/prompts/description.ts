@@ -1,4 +1,4 @@
-import type { ProjectType } from "@/app/services/estimate/_types/estimate";
+import type { ProjectType } from "@/app/(public)/services/estimate/_types/estimate";
 
 export function generateDescriptionPrompt(
 	projectType: ProjectType,

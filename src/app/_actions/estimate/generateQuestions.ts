@@ -5,7 +5,7 @@ import { generateQuestionPrompt } from "@/lib/gemini/prompts/question";
 import type {
 	AIQuestion,
 	EstimateFormData,
-} from "@/app/services/estimate/_types/estimate";
+} from "@/app/(public)/services/estimate/_types/estimate";
 
 export async function generateQuestions(
 	formData: EstimateFormData,

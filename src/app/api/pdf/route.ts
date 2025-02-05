@@ -2,8 +2,8 @@ import { type NextRequest, NextResponse } from "next/server";
 import {
 	generatePDF,
 	renderPDFTemplate,
-} from "@/app/services/estimate/_utils/pdf/generatePDF";
-import type { EstimateFormData } from "@/app/services/estimate/_types/estimate";
+} from "@/app/(public)/services/estimate/_utils/pdf/generatePDF";
+import type { EstimateFormData } from "@/app/(public)/services/estimate/_types/estimate";
 
 export async function POST(request: NextRequest) {
 	try {

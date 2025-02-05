@@ -9,7 +9,7 @@ import {
 import type {
 	EstimateFormData,
 	FeatureProposal,
-} from "@/app/services/estimate/_types/estimate";
+} from "@/app/(public)/services/estimate/_types/estimate";
 
 interface GeneratedFeature {
 	id: string;

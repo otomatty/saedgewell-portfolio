@@ -1,4 +1,4 @@
-import type { EstimateFormData } from "@/app/services/estimate/_types/estimate";
+import type { EstimateFormData } from "@/app/(public)/services/estimate/_types/estimate";
 import type { FeatureProposal } from "@/types/prompts/features";
 
 export function generateFeaturePrompt(formData: EstimateFormData) {
