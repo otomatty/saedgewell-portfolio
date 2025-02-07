@@ -1,85 +1,116 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Building2, Users, Code2, Trophy } from "lucide-react";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import type { FeaturedWork } from "@/types/work";
 
-const achievements = [
-	{
-		icon: Building2,
-		title: "企業案件",
-		description:
-			"大手企業のWebアプリケーション開発、システム改修など、多数の実績があります。",
-		stat: "20+",
-		label: "プロジェクト",
-	},
-	{
-		icon: Users,
-		title: "フリーランス案件",
-		description:
-			"スタートアップから中小企業まで、様々な規模の開発案件を担当してきました。",
-		stat: "15+",
-		label: "クライアント",
-	},
-	{
-		icon: Code2,
-		title: "個人開発",
-		description:
-			"自社サービスの開発や、オープンソースプロジェクトへの貢献を行っています。",
-		stat: "10+",
-		label: "プロダクト",
-	},
-	{
-		icon: Trophy,
-		title: "受賞歴",
-		description:
-			"ハッカソンでの入賞や、技術カンファレンスでの登壇実績があります。",
-		stat: "5+",
-		label: "受賞",
-	},
-];
+interface AchievementsProps {
+	works: FeaturedWork[];
+}
 
-export const Achievements = () => {
+/**
+ * 実績を表示するコンポーネント
+ * スクロールに応じてバーが上に移動し、背景画像とプロジェクト名が切り替わる
+ */
+export const Achievements = ({ works }: AchievementsProps) => {
+	const containerRef = useRef<HTMLDivElement>(null);
+	const { scrollYProgress } = useScroll({
+		target: containerRef,
+		offset: ["start start", "end end"],
+	});
+
+	// アクティブなインデックスを計算
+	const activeIndex = useTransform(scrollYProgress, (value) => {
+		return Math.floor(value * 5);
+	});
+
 	return (
-		<section className="py-20">
-			<div className="container mx-auto px-4">
-				<div className="text-center mb-12">
-					<h2 className="text-3xl md:text-4xl font-bold mb-4">実績</h2>
-					<p className="text-lg text-muted-foreground">
-						これまでの開発実績とその成果をご紹介します
-					</p>
-				</div>
-
-				<div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-					{achievements.map((achievement, index) => (
+		<section ref={containerRef} className="relative h-[500vh]">
+			{/* 固定コンテナ */}
+			<div className="sticky top-0 h-screen overflow-hidden">
+				{/* 背景画像コンテナ */}
+				<div className="absolute inset-0 w-full h-full">
+					{works.map((work, index) => (
 						<motion.div
-							key={achievement.title}
-							initial={{ opacity: 0, y: 20 }}
-							whileInView={{ opacity: 1, y: 0 }}
-							transition={{ duration: 0.5, delay: index * 0.1 }}
-							viewport={{ once: true }}
+							key={work.id}
+							className="absolute inset-0 w-full h-full"
+							style={{
+								opacity: useTransform(activeIndex, (active) =>
+									active === index ? 1 : 0,
+								),
+								backgroundImage: `url(${work.thumbnail_url})`,
+								backgroundSize: "cover",
+								backgroundPosition: "center",
+							}}
 						>
-							<Card className="h-full">
-								<CardHeader>
-									<achievement.icon className="h-8 w-8 text-primary mb-2" />
-									<CardTitle>{achievement.title}</CardTitle>
-								</CardHeader>
-								<CardContent>
-									<p className="text-muted-foreground mb-4">
-										{achievement.description}
-									</p>
-									<div className="flex items-baseline gap-2">
-										<span className="text-3xl font-bold text-primary">
-											{achievement.stat}
-										</span>
-										<span className="text-sm text-muted-foreground">
-											{achievement.label}
-										</span>
-									</div>
-								</CardContent>
-							</Card>
+							{/* 暗いフィルター（透明度を40%に変更） */}
+							<div className="absolute inset-0 bg-black/40" />
 						</motion.div>
 					))}
+				</div>
+
+				{/* バーコンテナ */}
+				<div className="relative h-full flex items-center justify-center">
+					<div className="flex gap-12 px-4">
+						{works.map((work, index) => (
+							<motion.div
+								key={work.id}
+								className="relative w-8 h-[60vh]"
+								style={{
+									y: useTransform(activeIndex, (active) =>
+										active === index ? -50 : 0,
+									),
+								}}
+							>
+								{/* バー（最初から表示） */}
+								<motion.div
+									className="absolute inset-0 bg-primary rounded-full"
+									style={{
+										opacity: useTransform(activeIndex, (active) =>
+											active === index ? 1 : 0.3,
+										),
+									}}
+								/>
+
+								{/* アクティブインジケーター */}
+								<motion.div
+									className="absolute -bottom-3 left-1/2 w-2 h-2 -translate-x-1/2 bg-primary rounded-full"
+									style={{
+										opacity: useTransform(activeIndex, (active) =>
+											active === index ? 1 : 0,
+										),
+									}}
+								/>
+							</motion.div>
+						))}
+					</div>
+				</div>
+
+				{/* プロジェクト名 */}
+				<div className="absolute bottom-32 left-0 right-0">
+					<div className="container mx-auto px-4">
+						{works.map((work, index) => (
+							<motion.div
+								key={work.id}
+								className="text-center"
+								style={{
+									opacity: useTransform(activeIndex, (active) =>
+										active === index ? 1 : 0,
+									),
+									display: useTransform(activeIndex, (active) =>
+										active === index ? "block" : "none",
+									),
+									position: "absolute",
+									width: "100%",
+									left: "50%",
+									transform: "translateX(-50%)",
+								}}
+							>
+								<h3 className="text-4xl font-bold text-white">{work.title}</h3>
+								<p className="mt-4 text-lg text-white/80">{work.description}</p>
+							</motion.div>
+						))}
+					</div>
 				</div>
 			</div>
 		</section>

@@ -43,7 +43,7 @@ export const UserMenu = ({ profile }: UserMenuProps) => {
 				<DropdownMenuLabel>{profile.fullName ?? "ユーザー"}</DropdownMenuLabel>
 				<DropdownMenuSeparator />
 				<DropdownMenuItem asChild>
-					<Link href="/dashboard" className="cursor-pointer">
+					<Link href="/app/dashboard" className="cursor-pointer">
 						<User className="mr-2 h-4 w-4" />
 						ダッシュボード
 					</Link>

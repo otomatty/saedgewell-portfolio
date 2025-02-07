@@ -1,8 +1,11 @@
 "use client";
 
+import Link from "next/link";
+
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { ContactDialog } from "@/components/custom/contact/contact-dialog";
 
 export const Hero = () => {
 	return (
@@ -14,22 +17,20 @@ export const Hero = () => {
 					transition={{ duration: 0.8 }}
 					className="text-center"
 				>
-					<h1 className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
+					<h1 className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text  bg-gradient-to-r from-primary to-primary/80">
 						エンジニアリングで
 						<br />
 						ビジネスの成功を実現する
 					</h1>
-					<p className="text-xl md:text-2xl text-muted-foreground mb-8">
+					<p className="text-xl md:text-2xl  mb-8">
 						プロダクトエンジニアとして、あなたのビジョンを現実に
 					</p>
 					<div className="flex gap-4 justify-center">
 						<Button size="lg" className="group">
-							プロジェクトを見る
+							<Link href="/works">実績を見る</Link>
 							<ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
 						</Button>
-						<Button size="lg" variant="outline">
-							お問い合わせ
-						</Button>
+						<ContactDialog triggerSize="lg" />
 					</div>
 				</motion.div>
 			</div>

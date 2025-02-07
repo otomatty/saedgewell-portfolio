@@ -127,3 +127,9 @@ export interface WorksFilter {
 	category?: string;
 	query?: string;
 }
+
+// 実績表示用の型定義
+export type FeaturedWork = Pick<
+	Work,
+	"id" | "title" | "description" | "thumbnail_url"
+>;

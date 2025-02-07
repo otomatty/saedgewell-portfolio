@@ -66,10 +66,6 @@ const navigationItems: NavigationItem[] = [
 		title: "Blog",
 		href: "/blog",
 	},
-	{
-		title: "Contact",
-		href: "/contact",
-	},
 ];
 
 export const Navigation = () => {

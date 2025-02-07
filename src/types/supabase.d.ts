@@ -536,6 +536,81 @@ export type Database = {
           },
         ]
       }
+      notification_settings: {
+        Row: {
+          chat_messages: boolean | null
+          created_at: string | null
+          documents: boolean | null
+          email_notifications: boolean | null
+          id: string
+          milestones: boolean | null
+          project_updates: boolean | null
+          system_notifications: boolean | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          chat_messages?: boolean | null
+          created_at?: string | null
+          documents?: boolean | null
+          email_notifications?: boolean | null
+          id?: string
+          milestones?: boolean | null
+          project_updates?: boolean | null
+          system_notifications?: boolean | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          chat_messages?: boolean | null
+          created_at?: string | null
+          documents?: boolean | null
+          email_notifications?: boolean | null
+          id?: string
+          milestones?: boolean | null
+          project_updates?: boolean | null
+          system_notifications?: boolean | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      notifications: {
+        Row: {
+          content: string
+          created_at: string | null
+          id: string
+          is_read: boolean | null
+          link: string | null
+          title: string
+          type: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          content: string
+          created_at?: string | null
+          id?: string
+          is_read?: boolean | null
+          link?: string | null
+          title: string
+          type: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          content?: string
+          created_at?: string | null
+          id?: string
+          is_read?: boolean | null
+          link?: string | null
+          title?: string
+          type?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       otp_challenges: {
         Row: {
           attempts: number
@@ -927,27 +1002,41 @@ export type Database = {
       }
       skill_features: {
         Row: {
-          created_at: string | null
+          created_at: string
           description: string
           id: string
-          skill_id: string | null
-          updated_at: string | null
+          is_capable: boolean
+          priority: number
+          skill_id: string
+          updated_at: string
         }
         Insert: {
-          created_at?: string | null
+          created_at?: string
           description: string
           id?: string
-          skill_id?: string | null
-          updated_at?: string | null
+          is_capable?: boolean
+          priority?: number
+          skill_id: string
+          updated_at?: string
         }
         Update: {
-          created_at?: string | null
+          created_at?: string
           description?: string
           id?: string
-          skill_id?: string | null
-          updated_at?: string | null
+          is_capable?: boolean
+          priority?: number
+          skill_id?: string
+          updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "skill_features_skill_id_fkey"
+            columns: ["skill_id"]
+            isOneToOne: false
+            referencedRelation: "skills"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       skills: {
         Row: {

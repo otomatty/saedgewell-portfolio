@@ -10,7 +10,7 @@ import { UserMenu } from "./_components/UserMenu";
 import { useAuth } from "@/hooks/useAuth";
 import type { Profile } from "@/types/profile";
 import { ContactDialog } from "@/components/custom/contact/contact-dialog";
-
+import { ThemeToggle } from "@/components/custom/theme/theme-toggle";
 interface HeaderProps {
 	profile: Profile | null;
 }
@@ -43,7 +43,8 @@ export const Header = ({ profile }: HeaderProps) => {
 					{/* デスクトップ用のナビゲーションとユーザーメニュー */}
 					<div className="hidden md:flex md:items-center md:space-x-4">
 						<Navigation />
-						<ContactDialog profile={profile} />
+						<ThemeToggle />
+						<ContactDialog />
 						{isLoading ? (
 							<Skeleton className="h-10 w-10 rounded-full" />
 						) : isAuthenticated ? (
