@@ -1,9 +1,13 @@
+"use client";
+
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { MagicCard } from "@/components/magicui/magic-card";
 import { cn } from "@/lib/utils";
+import { useTheme } from "next-themes";
 
 /**
  * BentoGridコンポーネントのプロパティ定義
@@ -37,6 +41,26 @@ interface BentoCardProps extends ComponentPropsWithoutRef<"div"> {
 	description?: string;
 	href: string;
 	cta: string;
+}
+
+/**
+ * MagicBentoCardコンポーネントのプロパティ定義
+ * BentoCardPropsを継承し、MagicCardのグラデーションプロパティを追加
+ *
+ * @interface MagicBentoCardProps
+ * @extends {BentoCardProps}
+ * @property {number} [gradientSize] - グラデーションの円の大きさ（ピクセル）
+ * @property {string} [gradientColor] - グラデーションのベースカラー
+ * @property {number} [gradientOpacity] - グラデーションの不透明度（0-1）
+ * @property {string} [gradientFrom] - グラデーションの開始色
+ * @property {string} [gradientTo] - グラデーションの終了色
+ */
+interface MagicBentoCardProps extends BentoCardProps {
+	gradientSize?: number;
+	gradientColor?: string;
+	gradientOpacity?: number;
+	gradientFrom?: string;
+	gradientTo?: string;
 }
 
 /**
@@ -114,7 +138,7 @@ const BentoCard = ({
 		{...props}
 	>
 		<div>{background}</div>
-		<div className="pointer-events-none z-10 flex transform-gpu flex-col gap-1 p-6 transition-all duration-300 group-hover:-translate-y-10">
+		<div className="pointer-events-none flex transform-gpu flex-col gap-1 p-6 transition-all duration-300 group-hover:-translate-y-10 z-20">
 			<Icon className="h-12 w-12 origin-left transform-gpu text-neutral-700 transition-all duration-300 ease-in-out group-hover:scale-75" />
 			<h3 className="text-xl font-semibold text-neutral-700 dark:text-neutral-300">
 				{name}
@@ -124,7 +148,7 @@ const BentoCard = ({
 
 		<div
 			className={cn(
-				"pointer-events-none absolute bottom-0 flex w-full translate-y-10 transform-gpu flex-row items-center p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100",
+				"pointer-events-none absolute bottom-0 flex w-full translate-y-10 transform-gpu flex-row items-center p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 z-20",
 			)}
 		>
 			<Button variant="ghost" asChild size="sm" className="pointer-events-auto">
@@ -134,8 +158,76 @@ const BentoCard = ({
 				</a>
 			</Button>
 		</div>
-		<div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-black/[.03] group-hover:dark:bg-neutral-800/10" />
+		<div className="pointer-events-none absolute inset-0 transform-gpu transition-all duration-300 group-hover:bg-black/[.03] group-hover:backdrop-blur-sm group-hover:dark:bg-neutral-800/10 z-10" />
+		<div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/95 to-transparent z-[5]" />
 	</Card>
 );
 
-export { BentoCard, BentoGrid };
+/**
+ * マジックエフェクト付きのベントーカードコンポーネント
+ * マウスの動きに応じてグラデーションエフェクトを表示
+ *
+ * @example
+ * ```tsx
+ * <MagicBentoCard
+ *   name="プロジェクト"
+ *   className="md:col-span-2"
+ *   background={<img src="/project.jpg" alt="プロジェクト" />}
+ *   Icon={ProjectIcon}
+ *   description="プロジェクトの説明"
+ *   href="/projects"
+ *   cta="詳細を見る"
+ * />
+ * ```
+ */
+const MagicBentoCard = ({
+	name,
+	className,
+	background,
+	Icon,
+	description,
+	href,
+	cta,
+	...props
+}: BentoCardProps) => {
+	const { theme } = useTheme();
+
+	return (
+		<MagicCard
+			className={cn(
+				"group relative flex flex-col overflow-hidden rounded-xl shadow-2xl cursor-pointer",
+				"transition-all duration-300 ease-in-out",
+				className,
+			)}
+			gradientColor={theme === "dark" ? "#262626" : "#D9D9D955"}
+			gradientOpacity={theme === "dark" ? 0.7 : 0.3}
+			{...props}
+		>
+			<div className="absolute inset-0 z-0">{background}</div>
+			<div className="pointer-events-none flex transform-gpu flex-col gap-1 p-6 transition-all duration-300 group-hover:-translate-y-10 z-20">
+				<Icon className="h-12 w-12 origin-left transform-gpu transition-all duration-300 ease-in-out group-hover:scale-75 text-foreground" />
+				<h3 className="text-2xl font-semibold text-foreground">{name}</h3>
+				{description && (
+					<p className="max-w-lg text-foreground/70">{description}</p>
+				)}
+			</div>
+
+			<div className="pointer-events-none absolute bottom-0 flex w-full translate-y-10 transform-gpu flex-row items-center p-4 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 z-20">
+				<Button
+					variant="ghost"
+					asChild
+					size="sm"
+					className="pointer-events-auto"
+				>
+					<a href={href}>
+						{cta}
+						<ArrowRightIcon className="ms-2 h-4 w-4 rtl:rotate-180" />
+					</a>
+				</Button>
+			</div>
+			<div className="absolute inset-0 bg-gradient-to-t from-background/60 via-background/10 to-transparent z-[5]" />
+		</MagicCard>
+	);
+};
+
+export { BentoCard, BentoGrid, MagicBentoCard };

@@ -10,22 +10,13 @@ import { StatsCard } from "./_components/stats-card";
 import { StatsGraph } from "./_components/stats-graph";
 import { Users, UserPlus, UserCheck, MessageSquare } from "lucide-react";
 
-interface PageProps {
-	searchParams: {
-		page?: string;
-		search?: string;
-		role?: string;
-	};
-}
-
-export default async function AdminPage({ searchParams }: PageProps) {
-	const page = Number(searchParams.page) || 1;
+export default async function AdminPage() {
 	const [initialData, stats] = await Promise.all([
 		getUsers({
-			page,
+			page: 1,
 			limit: 10,
-			search: searchParams.search,
-			role: searchParams.role,
+			search: "",
+			role: "",
 		}),
 		getAdminStats(),
 	]);

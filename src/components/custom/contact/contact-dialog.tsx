@@ -27,12 +27,6 @@ const defaultCategories: Category[] = [
 		icon: Settings,
 	},
 	{
-		id: "feature",
-		name: "機能に関するお問い合わせ",
-		description: "機能の使い方や提案",
-		icon: FileQuestion,
-	},
-	{
 		id: "other",
 		name: "その他のお問い合わせ",
 		description: "その他のご質問やご要望",
@@ -59,6 +53,11 @@ export interface ContactDialogProps {
 	 * トリガーボタンのサイズ
 	 */
 	triggerSize?: "sm" | "lg" | "icon" | "default";
+
+	/**
+	 * ボタンのprops
+	 */
+	buttonProps?: React.ComponentProps<typeof Button>;
 }
 
 /**
@@ -71,6 +70,7 @@ export const ContactDialog = ({
 	triggerText = "お問い合わせ",
 	triggerClassName,
 	triggerSize = "default",
+	buttonProps,
 }: ContactDialogProps) => {
 	if (!Array.isArray(categories)) {
 		console.error("categories must be an array");
@@ -97,11 +97,10 @@ export const ContactDialog = ({
 		<ResponsiveDialog
 			trigger={
 				<Button
-					variant="outline"
 					className={triggerClassName}
 					size={triggerSize}
+					{...buttonProps}
 				>
-					<MessageCircle className="mr-2 h-4 w-4" />
 					{triggerText}
 				</Button>
 			}

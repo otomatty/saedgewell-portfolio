@@ -18,26 +18,6 @@ import { Calendars } from "./calendars";
 import type { Profile } from "@/types/profile";
 import { navItems } from "./nav-items";
 
-const calendars = [
-	{
-		name: "2025年",
-		items: [
-			"1月",
-			"2月",
-			"3月",
-			"4月",
-			"5月",
-			"6月",
-			"7月",
-			"8月",
-			"9月",
-			"10月",
-			"11月",
-			"12月",
-		],
-	},
-];
-
 export function AdminSidebar({
 	profile,
 	...props
@@ -54,7 +34,6 @@ export function AdminSidebar({
 			<SidebarContent>
 				<DatePicker />
 				<SidebarSeparator className="mx-0" />
-				<Calendars calendars={calendars} />
 				<SidebarSeparator />
 				<AdminNavMain items={navItems} />
 			</SidebarContent>

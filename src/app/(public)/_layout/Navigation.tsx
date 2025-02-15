@@ -63,8 +63,25 @@ const navigationItems: NavigationItem[] = [
 		],
 	},
 	{
-		title: "Blog",
+		title: "Resources",
 		href: "/blog",
+		items: [
+			{
+				title: "ブログ",
+				href: "/blog",
+				description: "技術情報や開発に関する記事を公開しています。",
+			},
+			{
+				title: "ノート",
+				href: "/notes",
+				description: "日々の開発や学習で得た知見をまとめています。",
+			},
+			{
+				title: "実験場",
+				href: "/sunaba",
+				description: "様々なコンポーネントの動作確認や実験を行える場所です。",
+			},
+		],
 	},
 ];
 

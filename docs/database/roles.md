@@ -35,16 +35,3 @@ on public.roles for select
 to authenticated
 using (true);
 ```
-
-### 管理ポリシー（ALL）
-```sql
-create policy "ロールは管理者のみが管理可能"
-on public.roles for all
-using (
-  exists (
-    select 1 from public.user_roles ur
-    join public.roles r on ur.role_id = r.id
-    where ur.user_id = auth.uid()
-    and r.name = 'admin'
-  )
-); 

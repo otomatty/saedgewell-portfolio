@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Heart, Lightbulb, Target, Users2 } from "lucide-react";
-
+import { SectionTitle } from "@/components/custom/section-title";
 const values = [
 	{
 		icon: Heart,
@@ -35,14 +35,12 @@ export const Values = () => {
 	return (
 		<section className="py-20 bg-secondary/5">
 			<div className="container mx-auto px-4">
-				<div className="text-center mb-12">
-					<h2 className="text-3xl md:text-4xl font-bold mb-4">価値観</h2>
-					<p className="text-lg text-muted-foreground">
-						エンジニアとしての信念と大切にしている価値観
-					</p>
-				</div>
+				<SectionTitle
+					title="価値観"
+					subtitle="エンジニアとしての信念と大切にしている価値観を表示します。"
+				/>
 
-				<div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+				<div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mx-auto">
 					{values.map((value, index) => (
 						<motion.div
 							key={value.title}

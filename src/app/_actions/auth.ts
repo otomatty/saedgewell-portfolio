@@ -85,7 +85,7 @@ export async function getCurrentUserRole(): Promise<UserRole | null> {
 		.eq("id", user.id)
 		.single();
 
-	return (profile?.roles?.name as UserRole) ?? "user";
+	return (profile?.roles?.[0]?.name as UserRole) ?? "user";
 }
 
 /**

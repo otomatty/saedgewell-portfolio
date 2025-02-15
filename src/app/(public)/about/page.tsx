@@ -7,6 +7,9 @@ import { TechStack } from "./_components/TechStack";
 import { Certifications } from "./_components/Certifications";
 import { Interests } from "./_components/Interests";
 import { Featured } from "./_components/Featured";
+import { GithubContributions } from "@/app/(public)/about/_components/github-contributions";
+import { getGithubContribution } from "@/app/_actions/github/getGithubContribution";
+import type { ContributionDay } from "@/app/_actions/github/getGithubContribution";
 
 export const metadata: Metadata = {
 	title: "About Me",
@@ -14,7 +17,27 @@ export const metadata: Metadata = {
 		"プロダクトエンジニアとして、モダンな技術を活用したWeb開発に携わっています。",
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+	const githubUsername = "otomatty"; // 自身のGithubのユーザー名
+	const githubToken = process.env.GITHUB_TOKEN;
+
+	let contributions: ContributionDay[] = [];
+	let errorMessage: string | null = null;
+
+	if (!githubToken) {
+		errorMessage = "GITHUB_TOKENが設定されていません。";
+	} else {
+		try {
+			contributions = await getGithubContribution(githubUsername, githubToken);
+		} catch (error: unknown) {
+			if (error instanceof Error) {
+				errorMessage = `GitHubのコントリビューションの取得に失敗しました: ${error.message}`;
+			} else {
+				errorMessage = "GitHubのコントリビューションの取得に失敗しました。";
+			}
+		}
+	}
+
 	return (
 		<main>
 			<AboutHero />
@@ -26,6 +49,9 @@ export default function AboutPage() {
 				<Certifications />
 				<Interests />
 				<Featured />
+				{githubToken && !errorMessage && (
+					<GithubContributions contributions={contributions} />
+				)}
 			</div>
 		</main>
 	);

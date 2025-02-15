@@ -2,7 +2,11 @@ import { Hero } from "./_components/Hero";
 import { Introduction } from "./_components/Introduction";
 import { Achievements } from "./_components/Achievements";
 import { CTASection } from "./_components/CTASection";
+import { AdditionalAchievements } from "./_components/AdditionalAchievements";
+import { sampleWorks } from "./_components/AdditionalAchievements/sample-data";
 import type { FeaturedWork } from "@/types/work";
+import { getMetrics } from "@/app/_actions/metrics";
+import type { Metric } from "@/types/metrics";
 
 // TODO: 実際のデータ取得処理に置き換える
 const mockWorks: FeaturedWork[] = [
@@ -38,12 +42,15 @@ const mockWorks: FeaturedWork[] = [
 	},
 ];
 
-export default function HomePage() {
+export default async function HomePage() {
+	const metrics: Metric[] = await getMetrics();
+
 	return (
 		<div className="min-h-screen">
 			<Hero />
-			<Introduction />
+			<Introduction metrics={metrics} />
 			<Achievements works={mockWorks} />
+			<AdditionalAchievements works={sampleWorks} />
 			<CTASection />
 		</div>
 	);

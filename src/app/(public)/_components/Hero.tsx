@@ -2,27 +2,45 @@
 
 import Link from "next/link";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { ContactDialog } from "@/components/custom/contact/contact-dialog";
+import { ThemeSwitch } from "@/components/custom/theme-switch";
+import LinearRotate from "@/components/magicui/linear-rotate";
+import { useRef } from "react";
 
 export const Hero = () => {
+	const ref = useRef<HTMLElement>(null);
+	const { scrollYProgress } = useScroll({
+		target: ref,
+		offset: ["start start", "end start"],
+	});
+
+	const y = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+	const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+
 	return (
-		<section className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-background to-background/80">
-			<div className="container mx-auto px-4">
+		<section ref={ref} className="relative min-h-screen overflow-hidden">
+			{/* 背景のアニメーション */}
+			<motion.div style={{ y, opacity }} className="absolute inset-0 z-0">
+				<LinearRotate />
+			</motion.div>
+
+			{/* メインコンテンツ */}
+			<div className="relative z-10 min-h-screen flex flex-col items-center justify-center gap-8 pb-16">
 				<motion.div
 					initial={{ opacity: 0, y: 20 }}
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.8 }}
 					className="text-center"
 				>
-					<h1 className="text-4xl md:text-6xl font-bold mb-6 bg-clip-text  bg-gradient-to-r from-primary to-primary/80">
-						エンジニアリングで
+					<h1 className="text-4xl md:text-6xl font-bold mb-6 tracking-tighter">
+						最小のリソースから
 						<br />
-						ビジネスの成功を実現する
+						<span className="aurora-gradient">最大の価値</span>を生み出す
 					</h1>
-					<p className="text-xl md:text-2xl  mb-8">
+					<p className="text-xl md:text-2xl mb-8 text-foreground/80">
 						プロダクトエンジニアとして、あなたのビジョンを現実に
 					</p>
 					<div className="flex gap-4 justify-center">
@@ -33,11 +51,15 @@ export const Hero = () => {
 						<ContactDialog triggerSize="lg" />
 					</div>
 				</motion.div>
-			</div>
 
-			{/* 背景のアニメーション要素 */}
-			<div className="absolute inset-0 -z-10">
-				<div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:50px_50px]" />
+				{/* テーマ切り替えボタン */}
+				<motion.div
+					initial={{ opacity: 0, y: 20 }}
+					animate={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.8, delay: 0.5 }}
+				>
+					<ThemeSwitch />
+				</motion.div>
 			</div>
 		</section>
 	);

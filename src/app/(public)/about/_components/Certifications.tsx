@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Award, Trophy } from "lucide-react";
+import { SectionTitle } from "@/components/custom/section-title";
 
 const certifications = [
 	{
@@ -59,11 +60,13 @@ export const Certifications = () => {
 		<section className="py-20 bg-secondary/5">
 			<div className="container mx-auto px-4">
 				<div className="text-center mb-12">
-					<h2 className="text-3xl md:text-4xl font-bold mb-4">資格・受賞歴</h2>
-					<p className="text-lg text-muted-foreground">取得資格と受賞実績</p>
+					<SectionTitle
+						title="資格・受賞歴"
+						subtitle="取得資格と受賞実績を表示します。"
+					/>
 				</div>
 
-				<div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+				<div className="grid md:grid-cols-2 gap-4 mx-auto">
 					{certifications.map((cert, certIndex) => (
 						<motion.div
 							key={cert.category}

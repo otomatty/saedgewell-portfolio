@@ -21,6 +21,8 @@ import {
 	CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import type { Profile } from "@/types/profile";
+import { useAuth } from "@/hooks/useAuth";
+import { LoginDialog } from "@/components/custom/login-dialog";
 
 const navigationItems = [
 	{
@@ -71,6 +73,7 @@ export const MobileSidebar = ({ profile }: MobileSidebarProps) => {
 	const [servicesOpen, setServicesOpen] = useState(false);
 	const pathname = usePathname();
 	const supabase = createClient();
+	const { isLoading, isAuthenticated } = useAuth(profile);
 
 	const handleSignOut = async () => {
 		await supabase.auth.signOut();
@@ -156,34 +159,42 @@ export const MobileSidebar = ({ profile }: MobileSidebarProps) => {
 					})}
 				</nav>
 
-				{profile && (
-					<div className="absolute bottom-0 left-0 right-0 p-4 space-y-4">
-						<div className="flex items-center gap-4">
-							<Avatar>
-								<AvatarImage
-									src={profile.avatarUrl ?? "/images/default-avatar.png"}
-									alt={profile.fullName ?? "ユーザー"}
-								/>
-								<AvatarFallback>
-									{profile.fullName?.[0]?.toUpperCase() ?? "U"}
-								</AvatarFallback>
-							</Avatar>
-							<div>
-								<p className="font-medium">{profile.fullName ?? "ユーザー"}</p>
-								<p className="text-sm text-muted-foreground">{profile.email}</p>
+				<div className="absolute bottom-0 left-0 right-0 p-4 space-y-4">
+					{isAuthenticated && profile ? (
+						<>
+							<div className="flex items-center gap-4">
+								<Avatar>
+									<AvatarImage
+										src={profile.avatarUrl ?? "/images/default-avatar.png"}
+										alt={profile.fullName ?? "ユーザー"}
+									/>
+									<AvatarFallback>
+										{profile.fullName?.[0]?.toUpperCase() ?? "U"}
+									</AvatarFallback>
+								</Avatar>
+								<div>
+									<p className="font-medium">
+										{profile.fullName ?? "ユーザー"}
+									</p>
+									<p className="text-sm text-muted-foreground">
+										{profile.email}
+									</p>
+								</div>
 							</div>
-						</div>
-						<Separator />
-						<Button
-							variant="ghost"
-							className="w-full justify-start text-destructive"
-							onClick={handleSignOut}
-						>
-							<LogOut className="mr-2 h-4 w-4" />
-							ログアウト
-						</Button>
-					</div>
-				)}
+							<Separator />
+							<Button
+								variant="ghost"
+								className="w-full justify-start text-destructive"
+								onClick={handleSignOut}
+							>
+								<LogOut className="mr-2 h-4 w-4" />
+								ログアウト
+							</Button>
+						</>
+					) : (
+						!isLoading && <LoginDialog />
+					)}
+				</div>
 			</SheetContent>
 		</Sheet>
 	);

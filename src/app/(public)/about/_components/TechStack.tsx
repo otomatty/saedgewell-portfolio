@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Code2, Database, Layout, Server } from "lucide-react";
+import { SectionTitle } from "@/components/custom/section-title";
 
 const techStacks = [
 	{
@@ -71,14 +72,12 @@ export const TechStack = () => {
 	return (
 		<section className="py-20">
 			<div className="container mx-auto px-4">
-				<div className="text-center mb-12">
-					<h2 className="text-3xl md:text-4xl font-bold mb-4">技術スタック</h2>
-					<p className="text-lg text-muted-foreground">
-						実務で使用している技術一覧
-					</p>
-				</div>
+				<SectionTitle
+					title="技術スタック"
+					subtitle="実務で使用している技術一覧を表示します。"
+				/>
 
-				<div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+				<div className="grid md:grid-cols-2 gap-4 mx-auto">
 					{techStacks.map((stack, stackIndex) => (
 						<motion.div
 							key={stack.category}

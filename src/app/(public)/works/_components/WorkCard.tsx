@@ -74,12 +74,14 @@ export function WorkCard(work: WorkCardProps) {
 				<CardContent className="space-y-4">
 					<div className="flex flex-wrap gap-2">
 						{work.work_technologies
-							.filter(({ technologies }) => technologies !== null)
-							.map(({ technologies }) => (
-								<Badge key={technologies.id} variant="secondary">
-									{technologies.name}
-								</Badge>
-							))}
+							? work.work_technologies
+									.filter(({ technologies }) => technologies !== null)
+									.map(({ technologies }) => (
+										<Badge key={technologies.id} variant="secondary">
+											{technologies.name}
+										</Badge>
+									))
+							: null}
 					</div>
 					<Button asChild className="w-full">
 						<Link href={`/works/${work.slug}`}>詳細を見る</Link>

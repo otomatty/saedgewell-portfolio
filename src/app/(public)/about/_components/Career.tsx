@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Building2, GraduationCap, Trophy } from "lucide-react";
+import { SectionTitle } from "@/components/custom/section-title";
 
 const careers = [
 	{
@@ -50,9 +51,10 @@ export const Career = () => {
 		<section className="py-20">
 			<div className="container mx-auto px-4">
 				<div className="max-w-3xl mx-auto">
-					<h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
-						経歴
-					</h2>
+					<SectionTitle
+						title="経歴"
+						subtitle="プロダクトエンジニアとしての経歴を表示します。"
+					/>
 					<div className="space-y-8">
 						{careers.map((career, index) => (
 							<motion.div

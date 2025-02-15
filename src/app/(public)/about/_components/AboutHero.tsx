@@ -4,6 +4,7 @@ import { Hero } from "@/components/custom/hero";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Github, Twitter } from "lucide-react";
 import Link from "next/link";
+import { ContactDialog } from "@/components/custom/contact/contact-dialog";
 
 export const AboutHero = () => {
 	return (
@@ -15,12 +16,7 @@ export const AboutHero = () => {
 			align="left"
 		>
 			<div className="flex flex-col sm:flex-row gap-4">
-				<Button asChild>
-					<Link href="/contact" className="gap-2">
-						お仕事のご依頼
-						<ArrowRight className="h-4 w-4" />
-					</Link>
-				</Button>
+				<ContactDialog />
 				<div className="flex gap-2">
 					<Button variant="outline" size="icon" asChild>
 						<Link

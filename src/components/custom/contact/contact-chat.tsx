@@ -41,7 +41,6 @@ export interface ContactChatProps {
 export const ContactChat = ({
 	categories,
 	onSendMessage,
-	className,
 }: ContactChatProps) => {
 	const [selectedCategory, setSelectedCategory] = useState<Category | null>(
 		null,
@@ -108,12 +107,7 @@ export const ContactChat = ({
 
 	if (!selectedCategory) {
 		return (
-			<div
-				className={cn(
-					"grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3",
-					className,
-				)}
-			>
+			<div className="flex flex-col gap-4">
 				{categories.map((category) => (
 					<CategoryCard
 						key={category.id}
@@ -129,7 +123,7 @@ export const ContactChat = ({
 	}
 
 	return (
-		<div className={cn("flex h-full flex-col gap-4", className)}>
+		<div className={cn("flex h-full flex-col gap-4")}>
 			<div className="flex-1 space-y-4 overflow-y-auto p-4">
 				{messages.map((message) => (
 					<ChatMessage key={message.id} {...message} />

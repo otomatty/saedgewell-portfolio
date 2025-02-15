@@ -11,6 +11,8 @@ import { useAuth } from "@/hooks/useAuth";
 import type { Profile } from "@/types/profile";
 import { ContactDialog } from "@/components/custom/contact/contact-dialog";
 import { ThemeToggle } from "@/components/custom/theme/theme-toggle";
+import { LoginDialog } from "@/components/custom/login-dialog";
+
 interface HeaderProps {
 	profile: Profile | null;
 }
@@ -54,9 +56,7 @@ export const Header = ({ profile }: HeaderProps) => {
 								<Skeleton className="h-10 w-10 rounded-full" />
 							)
 						) : (
-							<Button asChild>
-								<Link href="/auth/login">ログイン</Link>
-							</Button>
+							<LoginDialog />
 						)}
 					</div>
 

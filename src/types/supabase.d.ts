@@ -536,6 +536,348 @@ export type Database = {
           },
         ]
       }
+      knowledge_page_collaborators: {
+        Row: {
+          created_at: string
+          id: string
+          is_last_editor: boolean
+          page_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_last_editor?: boolean
+          page_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_last_editor?: boolean
+          page_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "knowledge_page_collaborators_page_id_fkey"
+            columns: ["page_id"]
+            isOneToOne: false
+            referencedRelation: "knowledge_pages"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "knowledge_page_collaborators_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "knowledge_users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      knowledge_page_details: {
+        Row: {
+          created_at: string
+          files: string[]
+          icons: string[]
+          id: string
+          lines: Json
+          page_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          files?: string[]
+          icons?: string[]
+          id?: string
+          lines?: Json
+          page_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          files?: string[]
+          icons?: string[]
+          id?: string
+          lines?: Json
+          page_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "knowledge_page_details_page_id_fkey"
+            columns: ["page_id"]
+            isOneToOne: true
+            referencedRelation: "knowledge_pages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      knowledge_page_links: {
+        Row: {
+          created_at: string
+          hop_level: number
+          id: string
+          source_page_id: string
+          target_page_id: string
+        }
+        Insert: {
+          created_at?: string
+          hop_level?: number
+          id?: string
+          source_page_id: string
+          target_page_id: string
+        }
+        Update: {
+          created_at?: string
+          hop_level?: number
+          id?: string
+          source_page_id?: string
+          target_page_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "knowledge_page_links_source_page_id_fkey"
+            columns: ["source_page_id"]
+            isOneToOne: false
+            referencedRelation: "knowledge_pages"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "knowledge_page_links_target_page_id_fkey"
+            columns: ["target_page_id"]
+            isOneToOne: false
+            referencedRelation: "knowledge_pages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      knowledge_pages: {
+        Row: {
+          accessed_at: string | null
+          commit_id: string | null
+          created_at: string
+          descriptions: string[]
+          id: string
+          image_url: string | null
+          last_accessed_at: string | null
+          linked_count: number
+          page_rank: number
+          persistent: boolean
+          pin_status: number
+          project_id: string
+          scrapbox_id: string
+          snapshot_count: number
+          snapshot_created_at: string | null
+          title: string
+          updated_at: string
+          views: number
+        }
+        Insert: {
+          accessed_at?: string | null
+          commit_id?: string | null
+          created_at: string
+          descriptions?: string[]
+          id?: string
+          image_url?: string | null
+          last_accessed_at?: string | null
+          linked_count?: number
+          page_rank?: number
+          persistent?: boolean
+          pin_status?: number
+          project_id: string
+          scrapbox_id: string
+          snapshot_count?: number
+          snapshot_created_at?: string | null
+          title: string
+          updated_at: string
+          views?: number
+        }
+        Update: {
+          accessed_at?: string | null
+          commit_id?: string | null
+          created_at?: string
+          descriptions?: string[]
+          id?: string
+          image_url?: string | null
+          last_accessed_at?: string | null
+          linked_count?: number
+          page_rank?: number
+          persistent?: boolean
+          pin_status?: number
+          project_id?: string
+          scrapbox_id?: string
+          snapshot_count?: number
+          snapshot_created_at?: string | null
+          title?: string
+          updated_at?: string
+          views?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "knowledge_pages_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "knowledge_projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      knowledge_projects: {
+        Row: {
+          auto_sync_enabled: boolean
+          created_at: string
+          id: string
+          is_private: boolean
+          last_synced_at: string
+          project_name: string
+          scrapbox_cookie: string | null
+          total_pages: number
+          updated_at: string
+        }
+        Insert: {
+          auto_sync_enabled?: boolean
+          created_at?: string
+          id?: string
+          is_private?: boolean
+          last_synced_at: string
+          project_name: string
+          scrapbox_cookie?: string | null
+          total_pages?: number
+          updated_at?: string
+        }
+        Update: {
+          auto_sync_enabled?: boolean
+          created_at?: string
+          id?: string
+          is_private?: boolean
+          last_synced_at?: string
+          project_name?: string
+          scrapbox_cookie?: string | null
+          total_pages?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      knowledge_sync_logs: {
+        Row: {
+          created_at: string
+          error_message: string | null
+          id: string
+          pages_processed: number
+          pages_updated: number
+          project_id: string
+          status: string
+          sync_completed_at: string | null
+          sync_started_at: string
+        }
+        Insert: {
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          pages_processed?: number
+          pages_updated?: number
+          project_id: string
+          status: string
+          sync_completed_at?: string | null
+          sync_started_at: string
+        }
+        Update: {
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          pages_processed?: number
+          pages_updated?: number
+          project_id?: string
+          status?: string
+          sync_completed_at?: string | null
+          sync_started_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "knowledge_sync_logs_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "knowledge_projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      knowledge_users: {
+        Row: {
+          created_at: string
+          display_name: string
+          id: string
+          name: string
+          photo_url: string | null
+          scrapbox_id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          display_name: string
+          id?: string
+          name: string
+          photo_url?: string | null
+          scrapbox_id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string
+          id?: string
+          name?: string
+          photo_url?: string | null
+          scrapbox_id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      metrics: {
+        Row: {
+          created_at: string
+          cta: string
+          description: string | null
+          display_name: string
+          href: string
+          icon: string
+          id: string
+          sort_order: number
+          type: Database["public"]["Enums"]["metric_type"]
+          unit: string
+          updated_at: string
+          value: number
+        }
+        Insert: {
+          created_at?: string
+          cta: string
+          description?: string | null
+          display_name: string
+          href: string
+          icon: string
+          id?: string
+          sort_order: number
+          type: Database["public"]["Enums"]["metric_type"]
+          unit: string
+          updated_at?: string
+          value: number
+        }
+        Update: {
+          created_at?: string
+          cta?: string
+          description?: string | null
+          display_name?: string
+          href?: string
+          icon?: string
+          id?: string
+          sort_order?: number
+          type?: Database["public"]["Enums"]["metric_type"]
+          unit?: string
+          updated_at?: string
+          value?: number
+        }
+        Relationships: []
+      }
       notification_settings: {
         Row: {
           chat_messages: boolean | null
@@ -1605,7 +1947,11 @@ export type Database = {
           }
     }
     Enums: {
-      [_ in never]: never
+      metric_type:
+        | "development_experience"
+        | "project_count"
+        | "article_count"
+        | "personal_project_count"
     }
     CompositeTypes: {
       [_ in never]: never
