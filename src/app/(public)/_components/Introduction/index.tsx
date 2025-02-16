@@ -27,10 +27,6 @@ import { Particles } from "@/components/magicui/particles";
 import { InterestPattern } from "@/components/magicui/interest-pattern";
 import { NotePattern } from "@/components/magicui/note-pattern";
 import { cn } from "@/lib/utils";
-import { ScrollFadeText } from "@/components/custom/scroll-fade-text";
-import { useGreeting } from "@/hooks/useGreeting";
-import { ScrollTextAnimation } from "@/components/custom/scroll-text-animation";
-import { useDisplayOnce } from "@/hooks/useDisplayOnce";
 import type { Metric } from "@/types/metrics";
 
 interface IntroductionProps {
@@ -43,13 +39,6 @@ interface IntroductionProps {
  */
 export const Introduction: React.FC<IntroductionProps> = ({ metrics }) => {
 	const { resolvedTheme } = useTheme();
-	const greeting = useGreeting();
-	const { shouldShow: shouldShowGreeting, markAsShown: markGreetingAsShown } =
-		useDisplayOnce("greeting-shown");
-	const {
-		shouldShow: shouldShowIntroduction,
-		markAsShown: markIntroductionAsShown,
-	} = useDisplayOnce("introduction-shown");
 
 	// metricsから必要なデータを抽出
 	const developmentExperience =
@@ -244,51 +233,8 @@ export const Introduction: React.FC<IntroductionProps> = ({ metrics }) => {
 		},
 	] as const;
 
-	// 挨拶アニメーションが完了したときのハンドラー
-	const handleGreetingComplete = () => {
-		markGreetingAsShown();
-	};
-
-	// 自己紹介アニメーションが完了したときのハンドラー
-	const handleIntroductionComplete = () => {
-		markIntroductionAsShown();
-	};
-
 	return (
 		<section className="relative w-full">
-			{shouldShowGreeting ? (
-				<>
-					{/* 挨拶のアニメーション */}
-					<div className="h-[200vh]">
-						<ScrollFadeText
-							text={`${greeting}`}
-							fontSize={32}
-							className="text-primary"
-							onAnimationComplete={handleGreetingComplete}
-						/>
-					</div>
-					<div className="h-[200vh]">
-						<ScrollFadeText
-							text={"ポートフォリオを\nご覧いただきありがとうございます"}
-							fontSize={32}
-							className="text-primary"
-						/>
-					</div>
-				</>
-			) : null}
-
-			{/* 自己紹介文のアニメーション */}
-			{shouldShowIntroduction ? (
-				<div className="h-[500vh]">
-					<ScrollTextAnimation
-						text="まずは自己紹介をいたします"
-						className="text-primary"
-						initialFontSize={32}
-						onAnimationComplete={handleIntroductionComplete}
-					/>
-				</div>
-			) : null}
-
 			{/* BentoGridセクション */}
 			<div className="py-10 md:py-20">
 				<div className="container mx-auto px-4">
