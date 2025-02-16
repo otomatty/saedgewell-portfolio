@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Hero } from "@/components/custom/hero";
+import { Hero } from "@/components/custom/Hero";
 import { ProcessSection } from "./components/ProcessSection";
 import { CTASection } from "@/app/(public)/_components/CTASection";
 import { processes } from "./data/process";

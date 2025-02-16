@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Hero } from "@/components/custom/hero";
+import { Hero } from "@/components/custom/Hero";
 import { PricingSection } from "./components/PricingSection";
 import { PricingFAQ } from "./components/PricingFAQ";
 import { deliverables, faqs } from "../../../../data/pricing";

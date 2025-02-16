@@ -1,6 +1,6 @@
 "use client";
 
-import { Hero } from "@/components/custom/hero";
+import { Hero } from "@/components/custom/Hero";
 
 export function WorksHero() {
 	return (

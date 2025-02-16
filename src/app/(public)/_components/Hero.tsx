@@ -1,3 +1,25 @@
+/**
+ * トップページのヒーローセクションコンポーネント
+ *
+ * @description
+ * - スクロールに応じて背景がパララックス効果で動作
+ * - フレーマーモーションによるアニメーション効果
+ * - レスポンシブ対応（モバイル/デスクトップ）
+ *
+ * @example
+ * ```tsx
+ * // ページコンポーネントでの使用例
+ * export default function Page() {
+ *   return <Hero />
+ * }
+ * ```
+ *
+ * @features
+ * - 背景のLinearRotateアニメーション
+ * - スクロールベースのパララックス効果
+ * - CTAボタン（実績を見る、お問い合わせ）
+ * - テーマ切り替え機能
+ */
 "use client";
 
 import Link from "next/link";

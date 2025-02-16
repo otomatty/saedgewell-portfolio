@@ -1,7 +1,7 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { Hero } from "@/components/custom/hero";
+import { Hero } from "@/components/custom/Hero";
 import { formatDate } from "@/lib/utils";
 
 interface BlogDetailHeroProps {

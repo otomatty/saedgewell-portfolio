@@ -1,8 +1,8 @@
 "use client";
 
-import { Hero } from "@/components/custom/hero";
+import { Hero } from "@/components/custom/Hero";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Github, Twitter } from "lucide-react";
+import { GitHubLogoIcon, TwitterLogoIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
 import { ContactDialog } from "@/components/custom/contact/contact-dialog";
 
@@ -24,7 +24,7 @@ export const AboutHero = () => {
 							target="_blank"
 							rel="noopener noreferrer"
 						>
-							<Github className="h-4 w-4" />
+							<GitHubLogoIcon className="h-4 w-4" />
 							<span className="sr-only">GitHubプロフィール</span>
 						</Link>
 					</Button>
@@ -34,7 +34,7 @@ export const AboutHero = () => {
 							target="_blank"
 							rel="noopener noreferrer"
 						>
-							<Twitter className="h-4 w-4" />
+							<TwitterLogoIcon className="h-4 w-4" />
 							<span className="sr-only">Xプロフィール</span>
 						</Link>
 					</Button>
