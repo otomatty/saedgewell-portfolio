@@ -1,10 +1,10 @@
 "use client";
 
-import { Hero } from "@/components/custom/Hero";
+import { BasicHero } from "@/components/custom/basic-hero";
 
 export const SkillsHero = () => {
 	return (
-		<Hero
+		<BasicHero
 			title="Skills"
 			description="フロントエンド、バックエンド、インフラまで、プロダクトな開発スキルを活かしてプロジェクトに貢献します。"
 			pattern="dots"

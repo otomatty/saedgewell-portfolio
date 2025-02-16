@@ -1,7 +1,7 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { Hero } from "@/components/custom/Hero";
+import { BasicHero } from "@/components/custom/basic-hero";
 import { formatDate } from "@/lib/utils";
 
 interface BlogDetailHeroProps {
@@ -20,7 +20,7 @@ export const BlogDetailHero = ({
 	estimatedReadingTime,
 }: BlogDetailHeroProps) => {
 	return (
-		<Hero title={title} description={description} pattern="dots" size="lg">
+		<BasicHero title={title} description={description} pattern="dots" size="lg">
 			<div className="flex flex-col items-center gap-4 mt-8">
 				<div className="flex flex-wrap justify-center gap-2">
 					{categories.map((category) => (
@@ -35,6 +35,6 @@ export const BlogDetailHero = ({
 					<span>{estimatedReadingTime}分で読めます</span>
 				</div>
 			</div>
-		</Hero>
+		</BasicHero>
 	);
 };

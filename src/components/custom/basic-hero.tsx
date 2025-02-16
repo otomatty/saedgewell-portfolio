@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
-interface HeroProps {
+interface BasicHeroProps {
 	title: string;
 	description?: string;
 	children?: React.ReactNode;
@@ -13,7 +13,7 @@ interface HeroProps {
 	size?: "sm" | "md" | "lg";
 }
 
-export const Hero = ({
+export const BasicHero = ({
 	title,
 	description,
 	children,
@@ -21,7 +21,7 @@ export const Hero = ({
 	pattern = "dots",
 	align = "center",
 	size = "md",
-}: HeroProps) => {
+}: BasicHeroProps) => {
 	const patterns = {
 		dots: "radial-gradient(circle, var(--primary) 1px, transparent 1px)",
 		grid: "linear-gradient(to right, var(--border) 1px, transparent 1px), linear-gradient(to bottom, var(--border) 1px, transparent 1px)",

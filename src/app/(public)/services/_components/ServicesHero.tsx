@@ -1,10 +1,10 @@
 "use client";
 
-import { Hero } from "@/components/custom/Hero";
+import { BasicHero } from "@/components/custom/basic-hero";
 
 export const ServicesHero = () => {
 	return (
-		<Hero
+		<BasicHero
 			title="Services"
 			description="フリーランスエンジニアとして、Webアプリケーション開発のサービスを提供しています。"
 			pattern="dots"

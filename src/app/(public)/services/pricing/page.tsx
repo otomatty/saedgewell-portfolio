@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Hero } from "@/components/custom/Hero";
+import { BasicHero } from "@/components/custom/basic-hero";
 import { PricingSection } from "./components/PricingSection";
 import { PricingFAQ } from "./components/PricingFAQ";
 import { deliverables, faqs } from "../../../../data/pricing";
@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function PricingPage() {
 	return (
 		<main>
-			<Hero
+			<BasicHero
 				title="料金"
 				description="各種成果物の料金体系をご確認いただけます。"
 				pattern="dots"

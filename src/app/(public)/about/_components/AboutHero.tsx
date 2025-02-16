@@ -1,6 +1,6 @@
 "use client";
 
-import { Hero } from "@/components/custom/Hero";
+import { BasicHero } from "@/components/custom/basic-hero";
 import { Button } from "@/components/ui/button";
 import { GitHubLogoIcon, TwitterLogoIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
@@ -8,7 +8,7 @@ import { ContactDialog } from "@/components/custom/contact/contact-dialog";
 
 export const AboutHero = () => {
 	return (
-		<Hero
+		<BasicHero
 			title="About Me"
 			description="プロダクトエンジニアとして、モダンな技術を活用したWeb開発に携わっています。"
 			pattern="dots"
@@ -40,6 +40,6 @@ export const AboutHero = () => {
 					</Button>
 				</div>
 			</div>
-		</Hero>
+		</BasicHero>
 	);
 };

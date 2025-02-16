@@ -1,10 +1,10 @@
 "use client";
 
-import { Hero } from "@/components/custom/Hero";
+import { BasicHero } from "@/components/custom/basic-hero";
 
 export const FaqHero = () => {
 	return (
-		<Hero
+		<BasicHero
 			title="FAQ"
 			description="よくある質問と回答をまとめています。"
 			pattern="dots"

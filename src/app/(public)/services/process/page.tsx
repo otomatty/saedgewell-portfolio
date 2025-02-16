@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Hero } from "@/components/custom/Hero";
+import { BasicHero } from "@/components/custom/basic-hero";
 import { ProcessSection } from "./components/ProcessSection";
 import { CTASection } from "@/app/(public)/_components/CTASection";
 import { processes } from "./data/process";
@@ -38,7 +38,7 @@ const processDetails = {
 export default function ProcessPage() {
 	return (
 		<main>
-			<Hero
+			<BasicHero
 				title="開発プロセス"
 				description="プロジェクトの進め方や各フェーズでの成果物について詳しくご説明します。"
 				pattern="dots"
