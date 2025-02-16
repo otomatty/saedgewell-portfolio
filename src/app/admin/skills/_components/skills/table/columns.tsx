@@ -54,7 +54,7 @@ export const skillColumns: ColumnDef<Skill>[] = [
 				editForm={
 					<SkillForm
 						categories={[]}
-						onSubmit={async () => {}}
+						onSuccess={async () => {}}
 						onCancel={() => {}}
 						defaultValues={row.original}
 					/>

@@ -409,4 +409,89 @@ INSERT INTO knowledge_page_links (
   'ターゲットページID',
   1
 );
+```
+
+4. Supabase Edge Functionsを使用した同期処理
+```sql
+-- Supabase Edge Functionsを使用した同期処理
+create or replace function public.sync_knowledge_projects()
+returns void
+language plpgsql
+security definer
+as $$
+declare
+  project record;
+  one_hour_ago timestamptz;
+  sync_log_id uuid;
+begin
+  -- 1時間前の時刻を計算
+  one_hour_ago := now() - interval '1 hour';
+  
+  -- 自動同期が有効で、最後の同期から1時間以上経過したプロジェクトを取得
+  for project in
+    select id, project_name, scrapbox_cookie, is_private
+    from public.knowledge_projects
+    where auto_sync_enabled = true
+    and (last_synced_at is null or last_synced_at < one_hour_ago)
+  loop
+    -- 同期ログの作成
+    insert into public.knowledge_sync_logs (
+      project_id,
+      sync_started_at,
+      status,
+      pages_processed,
+      pages_updated
+    ) values (
+      project.id,
+      now(),
+      'processing',
+      0,
+      0
+    ) returning id into sync_log_id;
+
+    begin
+      -- Supabase Edge Functionで同期処理を実行
+      select supabase_edge_function(
+        'sync-knowledge-project',
+        json_build_object(
+          'project_id', project.id,
+          'project_name', project.project_name,
+          'scrapbox_cookie', coalesce(project.scrapbox_cookie, current_setting('app.settings.default_scrapbox_cookie')),
+          'is_private', project.is_private
+        )
+      );
+
+      -- 同期成功時の更新
+      update public.knowledge_projects
+      set last_synced_at = now()
+      where id = project.id;
+
+      update public.knowledge_sync_logs
+      set 
+        sync_completed_at = now(),
+        status = 'completed'
+      where id = sync_log_id;
+
+    exception when others then
+      -- エラー発生時の更新
+      update public.knowledge_sync_logs
+      set 
+        sync_completed_at = now(),
+        status = 'error',
+        error_message = SQLERRM
+      where id = sync_log_id;
+    end;
+  end loop;
+end;
+$$;
+
+-- cronジョブの作成（1時間ごとに実行）
+select cron.schedule(
+  'sync-knowledge-projects',
+  '0 * * * *',
+  'select public.sync_knowledge_projects()'
+);
+
+-- RLSポリシーの作成
+grant execute on function public.sync_knowledge_projects() to postgres;
 ``` 

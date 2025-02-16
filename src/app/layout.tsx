@@ -4,6 +4,8 @@ import { Noto_Sans_JP, Inter } from "next/font/google";
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/providers/theme-provider";
 
+export const dynamic = "force-dynamic";
+
 const inter = Inter({
 	subsets: ["latin"],
 	weight: ["400", "500", "700"],

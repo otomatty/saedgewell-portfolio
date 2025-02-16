@@ -4,15 +4,11 @@ import { WorksHeader } from "./_components/WorksHeader";
 import { WorksTable } from "./_components/WorksTable";
 import { WorksTableSkeleton } from "./_components/WorksTableSkeleton";
 import type { WorkStatus, WorkCategory } from "@/types/work";
-export default async function WorksPage({
-	searchParams,
-}: {
-	searchParams: { [key: string]: string | undefined };
-}) {
+export default async function WorksPage() {
 	const works = await getWorks({
-		status: searchParams.status as WorkStatus,
-		category: searchParams.category as WorkCategory,
-		query: searchParams.query,
+		status: "all",
+		category: "all",
+		query: "",
 	});
 
 	return (

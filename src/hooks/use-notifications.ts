@@ -41,7 +41,18 @@ export function useNotifications() {
 	const fetchSettings = useCallback(async () => {
 		try {
 			const data = await getNotificationSettings();
-			setSettings(data);
+			setSettings({
+				id: data.id,
+				userId: data.userId,
+				projectUpdates: data.projectUpdates ?? false,
+				chatMessages: data.chatMessages ?? false,
+				milestones: data.milestones ?? false,
+				documents: data.documents ?? false,
+				systemNotifications: data.systemNotifications ?? false,
+				emailNotifications: data.emailNotifications ?? false,
+				createdAt: data.createdAt ?? new Date().toISOString(),
+				updatedAt: data.updatedAt ?? new Date().toISOString(),
+			});
 		} catch (error) {
 			console.error("通知設定の取得に失敗しました:", error);
 		}

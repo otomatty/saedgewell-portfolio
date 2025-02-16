@@ -19,9 +19,7 @@ export const sampleWorks: Work[] = [
 				technologies: {
 					id: "1",
 					name: "Next.js",
-					description: null,
 					category: "frontend",
-					icon_url: null,
 					created_at: "2024-01-01",
 					updated_at: "2024-01-01",
 				},
@@ -30,9 +28,7 @@ export const sampleWorks: Work[] = [
 				technologies: {
 					id: "2",
 					name: "TypeScript",
-					description: null,
 					category: "language",
-					icon_url: null,
 					created_at: "2024-01-01",
 					updated_at: "2024-01-01",
 				},
@@ -41,9 +37,7 @@ export const sampleWorks: Work[] = [
 				technologies: {
 					id: "3",
 					name: "Tailwind CSS",
-					description: null,
 					category: "frontend",
-					icon_url: null,
 					created_at: "2024-01-01",
 					updated_at: "2024-01-01",
 				},
@@ -74,9 +68,7 @@ export const sampleWorks: Work[] = [
 				technologies: {
 					id: "4",
 					name: "OpenAI API",
-					description: null,
 					category: "ai",
-					icon_url: null,
 					created_at: "2024-01-01",
 					updated_at: "2024-01-01",
 				},
@@ -85,9 +77,7 @@ export const sampleWorks: Work[] = [
 				technologies: {
 					id: "5",
 					name: "Python",
-					description: null,
 					category: "language",
-					icon_url: null,
 					created_at: "2024-01-01",
 					updated_at: "2024-01-01",
 				},
@@ -96,9 +86,7 @@ export const sampleWorks: Work[] = [
 				technologies: {
 					id: "6",
 					name: "FastAPI",
-					description: null,
 					category: "backend",
-					icon_url: null,
 					created_at: "2024-01-01",
 					updated_at: "2024-01-01",
 				},
@@ -129,9 +117,7 @@ export const sampleWorks: Work[] = [
 				technologies: {
 					id: "1",
 					name: "Next.js",
-					description: null,
 					category: "frontend",
-					icon_url: null,
 					created_at: "2024-01-01",
 					updated_at: "2024-01-01",
 				},
@@ -140,9 +126,7 @@ export const sampleWorks: Work[] = [
 				technologies: {
 					id: "3",
 					name: "Tailwind CSS",
-					description: null,
 					category: "frontend",
-					icon_url: null,
 					created_at: "2024-01-01",
 					updated_at: "2024-01-01",
 				},
@@ -151,9 +135,7 @@ export const sampleWorks: Work[] = [
 				technologies: {
 					id: "7",
 					name: "Framer Motion",
-					description: null,
 					category: "frontend",
-					icon_url: null,
 					created_at: "2024-01-01",
 					updated_at: "2024-01-01",
 				},
@@ -162,9 +144,7 @@ export const sampleWorks: Work[] = [
 				technologies: {
 					id: "8",
 					name: "Supabase",
-					description: null,
 					category: "backend",
-					icon_url: null,
 					created_at: "2024-01-01",
 					updated_at: "2024-01-01",
 				},

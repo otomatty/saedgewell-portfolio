@@ -376,3 +376,91 @@ export async function syncProject(projectId: string): Promise<{
 		};
 	}
 }
+
+/**
+ * 自動同期が有効なプロジェクトを取得する
+ * @returns 自動同期が有効なプロジェクトの一覧
+ */
+export async function getAutoSyncProjects(): Promise<{
+	projects: {
+		id: string;
+		project_name: string;
+		last_synced_at: string;
+		scrapbox_cookie?: string;
+		is_private: boolean;
+	}[];
+	error?: string;
+}> {
+	const supabase = await createClient();
+
+	try {
+		const { data: projects, error } = await supabase
+			.from("knowledge_projects")
+			.select("id, project_name, last_synced_at, scrapbox_cookie, is_private")
+			.eq("auto_sync_enabled", true)
+			.order("last_synced_at", { ascending: true });
+
+		if (error) {
+			return {
+				projects: [],
+				error: `プロジェクトの取得に失敗しました: ${error.message}`,
+			};
+		}
+
+		return {
+			projects:
+				projects?.map((project) => ({
+					...project,
+					scrapbox_cookie: project.scrapbox_cookie ?? undefined,
+				})) ?? [],
+		};
+	} catch (error) {
+		return {
+			projects: [],
+			error:
+				error instanceof Error ? error.message : "不明なエラーが発生しました。",
+		};
+	}
+}
+
+/**
+ * 自動同期を実行する
+ * 1時間以上同期されていないプロジェクトを対象に同期を実行する
+ */
+export async function runAutoSync(): Promise<{
+	success: boolean;
+	error?: string;
+}> {
+	try {
+		const { projects, error } = await getAutoSyncProjects();
+		if (error) {
+			throw new Error(error);
+		}
+
+		const oneHourAgo = new Date();
+		oneHourAgo.setHours(oneHourAgo.getHours() - 1);
+
+		const projectsToSync = projects.filter(
+			(project) => new Date(project.last_synced_at) < oneHourAgo,
+		);
+
+		for (const project of projectsToSync) {
+			try {
+				await syncProject(project.id);
+			} catch (error) {
+				console.error(
+					`Failed to sync project ${project.project_name}:`,
+					error instanceof Error ? error.message : error,
+				);
+			}
+		}
+
+		return { success: true };
+	} catch (error) {
+		return {
+			success: false,
+			error:
+				error instanceof Error ? error.message : "不明なエラーが発生しました。",
+		};
+	}
+}

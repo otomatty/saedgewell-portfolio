@@ -2,24 +2,36 @@ import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { PageDetail } from "../../_components/page-detail";
-import { PageLinks } from "../../_components/page-links";
-import { PageCollaborators } from "../../_components/page-collaborators";
+import { PageDetail } from "./_components/page-detail";
+import { PageLinks } from "./_components/page-links";
+import { PageCollaborators } from "./_components/page-collaborators";
+import { BackLink } from "@/components/custom/BackLink";
+import {
+	getKnowledgePageDetail,
+	getKnowledgePageLinks,
+} from "@/app/_actions/knowledge-pages";
 
 interface Props {
-	params: {
+	params: Promise<{
 		id: string;
-	};
+	}>;
 }
 
 export default async function KnowledgePageDetailPage({ params }: Props) {
-	// TODO: ページ情報の取得
-	// const page = await getKnowledgePage(params.id);
-	// if (!page) return notFound();
+	const { id } = await params;
+	const [page, links] = await Promise.all([
+		getKnowledgePageDetail(id),
+		getKnowledgePageLinks(id),
+	]);
+
+	if (!page) return notFound();
 
 	return (
 		<div className="container space-y-8 py-8">
-			<h1 className="text-3xl font-bold">ページ詳細</h1>
+			<div className="space-y-4">
+				<BackLink href="/admin/knowledge/pages" label="← ページ一覧に戻る" />
+				<h1 className="text-3xl font-bold">ページ詳細</h1>
+			</div>
 
 			<div className="grid gap-6 md:grid-cols-3">
 				<div className="md:col-span-2 space-y-6">
@@ -29,7 +41,7 @@ export default async function KnowledgePageDetailPage({ params }: Props) {
 								<CardTitle>ページ情報</CardTitle>
 							</CardHeader>
 							<CardContent>
-								<PageDetail id={params.id} />
+								<PageDetail page={page} />
 							</CardContent>
 						</Card>
 					</Suspense>
@@ -40,7 +52,7 @@ export default async function KnowledgePageDetailPage({ params }: Props) {
 								<CardTitle>リンク関係</CardTitle>
 							</CardHeader>
 							<CardContent>
-								<PageLinks id={params.id} />
+								<PageLinks links={links} />
 							</CardContent>
 						</Card>
 					</Suspense>
@@ -53,7 +65,7 @@ export default async function KnowledgePageDetailPage({ params }: Props) {
 								<CardTitle>編集者</CardTitle>
 							</CardHeader>
 							<CardContent>
-								<PageCollaborators id={params.id} />
+								<PageCollaborators collaborators={page.collaborators} />
 							</CardContent>
 						</Card>
 					</Suspense>

@@ -5,6 +5,7 @@ import {
 	Settings,
 	Users,
 	Briefcase,
+	BookOpen,
 } from "lucide-react";
 
 export const navItems = [
@@ -20,6 +21,29 @@ export const navItems = [
 			{
 				title: "新規作成",
 				url: "/admin/works/new",
+			},
+		],
+	},
+	{
+		title: "ナレッジ管理",
+		url: "/admin/knowledge",
+		icon: BookOpen,
+		items: [
+			{
+				title: "ナレッジトップ",
+				url: "/admin/knowledge",
+			},
+			{
+				title: "プロジェクト一覧",
+				url: "/admin/knowledge/projects",
+			},
+			{
+				title: "ページ一覧",
+				url: "/admin/knowledge/pages",
+			},
+			{
+				title: "同期",
+				url: "/admin/knowledge/sync",
 			},
 		],
 	},

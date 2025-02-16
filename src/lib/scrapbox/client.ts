@@ -17,25 +17,53 @@ export class ScrapboxClient {
 		this.cookie = config?.cookie;
 	}
 
+	private async fetch<T>(path: string): Promise<T> {
+		const response = await fetch(`${this.baseUrl}${path}`, {
+			headers: this.cookie ? { Cookie: this.cookie } : undefined,
+		});
+
+		if (!response.ok) {
+			throw new Error(
+				`Scrapbox API error: ${response.status} ${response.statusText}`,
+			);
+		}
+
+		return response.json();
+	}
+
 	/**
 	 * プロジェクトの全ページを取得する
 	 * @param projectName プロジェクト名
 	 * @returns プロジェクトの全ページ
 	 */
 	async getAllPages(projectName: string): Promise<ScrapboxPage[]> {
-		const limit = 100;
-		let skip = 0;
-		let allPages: ScrapboxPage[] = [];
-		let hasMore = true;
+		const response = await this.fetch<{
+			pages: Array<{
+				id: string;
+				title: string;
+				views: number;
+				linked: number;
+				pin: number;
+				updated: number;
+			}>;
+		}>(`/pages/${projectName}`);
 
-		while (hasMore) {
-			const response = await this.getPages(projectName, { skip, limit });
-			allPages = [...allPages, ...response.pages];
-			skip += limit;
-			hasMore = response.pages.length === limit;
-		}
-
-		return allPages;
+		return response.pages.map((page) => ({
+			id: page.id,
+			title: page.title,
+			views: page.views,
+			linked: page.linked,
+			pin: page.pin,
+			updated: new Date(page.updated).getTime(),
+			created: Date.now(),
+			accessed: 0,
+			snapshotCreated: 0,
+			pageRank: 0,
+			image: null,
+			descriptions: [],
+			user: { id: "system" },
+			commitId: "initial",
+		}));
 	}
 
 	/**

@@ -9,10 +9,12 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { RefreshCw } from "lucide-react";
 import { getProjectSyncLogs } from "@/app/_actions/knowledge";
-import { syncProject } from "@/app/_actions/knowledge-sync";
+import {
+	syncProject,
+	updateProjectSyncSettings,
+	getProjectSyncSettings,
+} from "@/app/_actions/knowledge-sync";
 import { useToast } from "@/hooks/use-toast";
 import type { Database } from "@/types/supabase";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -21,6 +23,8 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 import { RefreshCcw } from "lucide-react";
+import { Switch } from "@/components/ui/switch";
+import { Label } from "@/components/ui/label";
 
 type SyncLog = Database["public"]["Tables"]["knowledge_sync_logs"]["Row"];
 
@@ -31,12 +35,38 @@ interface ProjectSyncProps {
 export function ProjectSync({ projectId }: ProjectSyncProps) {
 	const [isSyncing, setIsSyncing] = useState(false);
 	const [syncLogs, setSyncLogs] = useState<SyncLog[]>([]);
+	const [autoSyncEnabled, setAutoSyncEnabled] = useState(false);
 	const { toast } = useToast();
+
+	const fetchSettings = useCallback(async () => {
+		try {
+			const settings = await getProjectSyncSettings(projectId);
+			if (settings.error) {
+				throw new Error(settings.error);
+			}
+			setAutoSyncEnabled(settings.auto_sync_enabled);
+		} catch (error) {
+			console.error("Failed to fetch settings:", error);
+			toast({
+				title: "設定の取得に失敗しました",
+				description:
+					error instanceof Error
+						? error.message
+						: "不明なエラーが発生しました。",
+				variant: "destructive",
+			});
+		}
+	}, [projectId, toast]);
 
 	const fetchSyncLogs = useCallback(async () => {
 		try {
 			const logs = await getProjectSyncLogs(projectId);
-			setSyncLogs(logs);
+			setSyncLogs(
+				logs.map((log) => ({
+					...log,
+					created_at: log.sync_started_at,
+				})),
+			);
 		} catch (error) {
 			console.error("Failed to fetch sync logs:", error);
 			toast({
@@ -51,8 +81,9 @@ export function ProjectSync({ projectId }: ProjectSyncProps) {
 	}, [projectId, toast]);
 
 	useEffect(() => {
+		fetchSettings();
 		fetchSyncLogs();
-	}, [fetchSyncLogs]);
+	}, [fetchSettings, fetchSyncLogs]);
 
 	const handleSync = async () => {
 		setIsSyncing(true);
@@ -79,6 +110,34 @@ export function ProjectSync({ projectId }: ProjectSyncProps) {
 		} finally {
 			setIsSyncing(false);
 			fetchSyncLogs();
+		}
+	};
+
+	const handleAutoSyncToggle = async () => {
+		try {
+			const result = await updateProjectSyncSettings(projectId, {
+				auto_sync_enabled: !autoSyncEnabled,
+			});
+
+			if (result.success) {
+				setAutoSyncEnabled(!autoSyncEnabled);
+				toast({
+					title: "設定を更新しました",
+					description: `自動同期を${!autoSyncEnabled ? "有効" : "無効"}にしました。`,
+				});
+			} else {
+				throw new Error(result.error);
+			}
+		} catch (error) {
+			console.error("Failed to update auto sync setting:", error);
+			toast({
+				title: "設定の更新に失敗しました",
+				description:
+					error instanceof Error
+						? error.message
+						: "不明なエラーが発生しました。",
+				variant: "destructive",
+			});
 		}
 	};
 
@@ -134,9 +193,22 @@ export function ProjectSync({ projectId }: ProjectSyncProps) {
 		<div className="space-y-6">
 			<Card>
 				<CardHeader>
-					<CardTitle>手動同期</CardTitle>
+					<CardTitle>同期設定</CardTitle>
 				</CardHeader>
-				<CardContent>
+				<CardContent className="space-y-6">
+					<div className="flex items-center justify-between">
+						<div className="space-y-0.5">
+							<Label>自動同期</Label>
+							<p className="text-sm text-muted-foreground">
+								1時間ごとに自動で同期を実行します
+							</p>
+						</div>
+						<Switch
+							checked={autoSyncEnabled}
+							onCheckedChange={handleAutoSyncToggle}
+						/>
+					</div>
+
 					<Button onClick={handleSync} disabled={isSyncing} className="w-full">
 						<RefreshCcw
 							className={`mr-2 h-4 w-4 ${isSyncing ? "animate-spin" : ""}`}

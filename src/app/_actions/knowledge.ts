@@ -64,6 +64,7 @@ export async function getProjectStats(projectId: string) {
 					pages_processed: latestSync.pages_processed,
 					pages_updated: latestSync.pages_updated,
 					error_message: latestSync.error_message,
+					created_at: latestSync.created_at,
 				}
 			: null,
 	};
@@ -249,6 +250,9 @@ export async function getProject(projectId: string) {
 		last_synced_at: project.last_synced_at,
 		created_at: project.created_at,
 		updated_at: project.updated_at,
+		auto_sync_enabled: project.auto_sync_enabled,
+		is_private: project.is_private,
+		scrapbox_cookie: project.scrapbox_cookie,
 	};
 }
 

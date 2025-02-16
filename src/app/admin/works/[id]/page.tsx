@@ -4,13 +4,14 @@ import { WorkFormTabs } from "../_components/form/WorkFormTabs";
 import { BackLink } from "@/components/custom/BackLink";
 
 interface WorkDetailPageProps {
-	params: {
+	params: Promise<{
 		id: string;
-	};
+	}>;
 }
 
 export default async function WorkDetailPage({ params }: WorkDetailPageProps) {
-	const work = await getWorkById(params.id).catch(() => null);
+	const { id } = await params;
+	const work = await getWorkById(id).catch(() => null);
 
 	if (!work) {
 		notFound();

@@ -86,10 +86,10 @@ export async function getAdminStats(): Promise<AdminStatsWithGraphs> {
 
 		// その日のログイン数
 		const { count: loginsAtDate } = await supabase
-			.from("sessions")
+			.from("profiles")
 			.select("*", { count: "exact", head: true })
-			.gte("created_at", startOfDay.toISOString())
-			.lte("created_at", endOfDay.toISOString());
+			.gte("last_sign_in_at", startOfDay.toISOString())
+			.lte("last_sign_in_at", endOfDay.toISOString());
 
 		// その日のお問い合わせ数
 		const { count: contactsAtDate } = await supabase

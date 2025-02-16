@@ -2,6 +2,7 @@ import { ComponentDetail } from "../../_components/ComponentDetail";
 import { getComponentDoc } from "../../utils";
 import { BentoGrid, BentoCard, MagicBentoCard } from "@/components/bento-grid";
 import { FileIcon, ImageIcon, VideoIcon } from "lucide-react";
+import { BasicBackground } from "./_components/basic-background";
 
 const CATEGORY = {
 	id: "layout",
@@ -26,9 +27,9 @@ export default async function BentoGridPage() {
 									name="ドキュメント"
 									className="col-span-4"
 									background={
-										<div className="absolute inset-0 bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-900 dark:to-neutral-800" />
+										<BasicBackground className="from-neutral-100 to-neutral-200 dark:from-neutral-900 dark:to-neutral-800" />
 									}
-									icon="file"
+									Icon={FileIcon}
 									description="プロジェクトのドキュメントを管理"
 									href="#"
 									cta="表示"
@@ -37,9 +38,9 @@ export default async function BentoGridPage() {
 									name="画像"
 									className="col-span-4"
 									background={
-										<div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800" />
+										<BasicBackground className="from-blue-100 to-blue-200 dark:from-blue-900 dark:to-blue-800" />
 									}
-									icon="image"
+									Icon={ImageIcon}
 									description="プロジェクトの画像アセット"
 									href="#"
 									cta="表示"
@@ -48,9 +49,9 @@ export default async function BentoGridPage() {
 									name="動画"
 									className="col-span-4"
 									background={
-										<div className="absolute inset-0 bg-gradient-to-br from-green-100 to-green-200 dark:from-green-900 dark:to-green-800" />
+										<BasicBackground className="from-green-100 to-green-200 dark:from-green-900 dark:to-green-800" />
 									}
-									icon="video"
+									Icon={VideoIcon}
 									description="プロジェクトの動画コンテンツ"
 									href="#"
 									cta="表示"
@@ -65,9 +66,9 @@ export default async function BentoGridPage() {
 									name="マジックカード1"
 									className="col-span-6"
 									background={
-										<div className="absolute inset-0 bg-gradient-to-br from-purple-100 to-purple-200 dark:from-purple-900 dark:to-purple-800" />
+										<BasicBackground className="from-purple-100 to-purple-200 dark:from-purple-900 dark:to-purple-800" />
 									}
-									icon="file"
+									Icon={FileIcon}
 									description="マウスに反応するグラデーションエフェクト"
 									href="#"
 									cta="表示"
@@ -76,9 +77,9 @@ export default async function BentoGridPage() {
 									name="マジックカード2"
 									className="col-span-6"
 									background={
-										<div className="absolute inset-0 bg-gradient-to-br from-pink-100 to-pink-200 dark:from-pink-900 dark:to-pink-800" />
+										<BasicBackground className="from-pink-100 to-pink-200 dark:from-pink-900 dark:to-pink-800" />
 									}
-									icon="image"
+									Icon={ImageIcon}
 									description="インタラクティブなホバーエフェクト"
 									href="#"
 									cta="表示"

@@ -3,8 +3,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PageList } from "./_components/page-list";
 import { PageSearch } from "./_components/page-search";
+import { getKnowledgePages } from "@/app/_actions/knowledge-pages";
 
 export default async function KnowledgePagesPage() {
+	const pages = await getKnowledgePages({
+		query: "",
+		limit: 50,
+	});
+
 	return (
 		<div className="container space-y-8 py-8">
 			<h1 className="text-3xl font-bold">ページ管理</h1>
@@ -25,7 +31,7 @@ export default async function KnowledgePagesPage() {
 							<CardTitle>ページ一覧</CardTitle>
 						</CardHeader>
 						<CardContent>
-							<PageList />
+							<PageList initialData={pages} />
 						</CardContent>
 					</Card>
 				</Suspense>
