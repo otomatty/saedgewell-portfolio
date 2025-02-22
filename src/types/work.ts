@@ -129,7 +129,24 @@ export interface WorksFilter {
 }
 
 // 実績表示用の型定義
-export type FeaturedWork = Pick<
-	Work,
-	"id" | "title" | "description" | "thumbnail_url"
->;
+interface FeaturedWork {
+	id: string;
+	title: string;
+	description: string;
+	thumbnail_url: string;
+	category: "company" | "freelance" | "personal";
+	github_url: string | null;
+	website_url: string | null;
+	details: {
+		overview: string;
+		role: string;
+		period: string;
+		team_size: string;
+		technologies: string[];
+		challenges: string[];
+		solutions: string[];
+		results: string[];
+	};
+}
+
+export type { FeaturedWork };

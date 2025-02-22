@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { getPageStats } from "@/app/_actions/knowledge";
+import { getPageStats } from "@/_actions/knowledge";
 import type { Database } from "@/types/supabase";
 
 type Project = Database["public"]["Tables"]["knowledge_projects"]["Row"];

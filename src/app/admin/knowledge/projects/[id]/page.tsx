@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { getProject, getProjectStats } from "@/app/_actions/knowledge";
+import { getProject, getProjectStats } from "@/_actions/knowledge";
 import { ProjectHeader } from "./_components/project-header";
 import { ProjectOverview } from "./_components/project-overview";
 import { ProjectPages } from "./_components/project-pages";

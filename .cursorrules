@@ -21,13 +21,13 @@ coding_guidelines:
   logic:
     - "ロジックは適切にモジュール化し、再利用可能な関数として定義すること。"
     - "ロジックはコンポーネントから分離し、コンポーネントの責任を減らすこと。"
-    - "サービスロジックはServerActionを使用し、app/actionsディレクトリに配置すること。"
+    - "サービスロジックはServerActionを使用し、src/_actionsディレクトリに配置すること。"
     - "ServerActionはシンプルなCRUDのみを担当し、APIはAPI Routesを使用し、app/apiディレクトリに配置すること。"
     - "共通ロジックでhooksがあるものはカスタムフックとしてhooksディレクトリに配置すること。"
     - "共通ロジックでhooksがないものはutilsディレクトリに配置すること。"
   types:
     - "型はtypesディレクトリに配置すること。"
-    - "any型は使用しないこと。"
+    - "any型は使用しないこと。" 
     - "型はinterfaceを使用し、型推論を活用すること。"
     - "型はconvertToCamelCase関数を使用し、キャメルケースに変換すること。"
     - "convertToCamelCase関数はサービスロジック内で使用すること"

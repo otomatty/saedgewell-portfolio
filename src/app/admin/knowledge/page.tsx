@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { ProjectsOverview } from "./_components/projects-overview";
 import { RecentPages } from "./_components/recent-pages";
 import { PageStats } from "./_components/page-stats";
-import { getProjects, getRecentPages } from "@/app/_actions/knowledge";
+import { getProjects, getRecentPages } from "@/_actions/knowledge";
 
 export default async function KnowledgePage() {
 	const [projects, recentPages] = await Promise.all([

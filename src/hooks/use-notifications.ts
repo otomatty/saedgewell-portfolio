@@ -14,7 +14,7 @@ import {
 	getNotificationSettings,
 	markNotificationsAsRead,
 	updateNotificationSettings as updateSettings,
-} from "@/app/_actions/notifications";
+} from "@/_actions/notifications";
 
 /**
  * 通知関連のカスタムフック

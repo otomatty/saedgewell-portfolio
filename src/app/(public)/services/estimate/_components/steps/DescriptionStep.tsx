@@ -12,7 +12,7 @@ import { Lightbulb, Wand2 } from "lucide-react";
 import {
 	generateDescriptionExamples,
 	type DescriptionExample,
-} from "@/app/_actions/estimate/generateDescriptionExamples";
+} from "@/_actions/estimate/generateDescriptionExamples";
 import type { EstimateFormData } from "../../_types/estimate";
 export function DescriptionStep() {
 	const [formData, setFormData] = useAtom(formDataAtom);

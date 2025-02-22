@@ -9,7 +9,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import { signInWithGoogle, signInWithGithub } from "@/app/_actions/auth";
+import { signInWithGoogle, signInWithGithub } from "@/_actions/auth";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 import { GoogleIcon, GitHubIcon } from "@/components/ui/icons";

@@ -8,8 +8,8 @@ import { Certifications } from "./_components/Certifications";
 import { Interests } from "./_components/Interests";
 import { Featured } from "./_components/Featured";
 import { GithubContributions } from "@/app/(public)/about/_components/github-contributions";
-import { getGithubContribution } from "@/app/_actions/github/getGithubContribution";
-import type { ContributionDay } from "@/app/_actions/github/getGithubContribution";
+import { getGithubContribution } from "@/_actions/github/getGithubContribution";
+import type { ContributionDay } from "@/_actions/github/getGithubContribution";
 
 export const metadata: Metadata = {
 	title: "About Me",

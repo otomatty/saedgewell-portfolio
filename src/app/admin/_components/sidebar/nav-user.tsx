@@ -29,7 +29,7 @@ import {
 // types
 import type { Profile } from "@/types/profile";
 // Server actions
-import { signOut } from "@/app/_actions/auth";
+import { signOut } from "@/_actions/auth";
 
 interface AdminNavUserProps {
 	profile: Profile;

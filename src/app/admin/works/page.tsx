@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { getWorks } from "@/app/_actions/works";
+import { getWorks } from "@/_actions/works";
 import { WorksHeader } from "./_components/WorksHeader";
 import { WorksTable } from "./_components/WorksTable";
 import { WorksTableSkeleton } from "./_components/WorksTableSkeleton";

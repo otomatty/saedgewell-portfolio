@@ -50,7 +50,7 @@ const isJapanese = (char: string): boolean => {
 export const ScrollTextAnimation = ({
 	text,
 	className,
-	initialFontSize = 32, // デフォルト値を72pxに設定
+	initialFontSize = 48, // デフォルト値を48pxに設定
 	onAnimationComplete,
 }: ScrollTextAnimationProps) => {
 	const containerRef = useRef<HTMLDivElement>(null);
@@ -102,25 +102,47 @@ export const ScrollTextAnimation = ({
 	// スクロール進捗を取得（セクション全体の高さに対する進捗を計測）
 	const { scrollYProgress } = useScroll({
 		target: containerRef,
-		offset: ["start start", "end end"], // セクション全体の開始から終了までを計測
+		offset: ["start start", "end end"],
 	});
+
+	// アニメーションフェーズを制御するための変換関数
+	const phase = useTransform(
+		scrollYProgress,
+		[0, 0.1, 0.2, 0.3, 0.95], // スクロール進捗の閾値
+		[0, 1, 1, 2, 3], // 各フェーズの値（0: 初期状態, 1: フェードイン完了, 2: 待機状態, 3: 拡大アニメーション）
+	);
 
 	// イージング関数を適用したスケール値を計算
-	const scale = useTransform(scrollYProgress, [0, 0.95], [1, 120], {
-		ease: easeInExpo,
-	});
-
-	const opacity = useTransform(
+	const scale = useTransform(
 		scrollYProgress,
-		[0, 0.1, 0.3, 0.8, 0.9, 1],
-		[0, 1, 1, 1, 0, 0],
+		[0.3, 0.7, 0.9], // スクロール進捗の閾値を調整
+		[1, 1.2, 1.2], // 通常サイズ → 1.5倍 → 2倍 → 0.5倍に縮小
 		{
 			ease: easeInExpo,
 		},
 	);
 
-	const y = useTransform(scrollYProgress, [0, 1], [0, -50], {
-		ease: easeInExpo,
+	const opacity = useTransform(
+		scrollYProgress,
+		[0, 0.1, 0.2, 0.6, 0.8, 0.9],
+		[0, 0.5, 1, 1, 0.5, 0], // フェードインしてから、縮小と共にフェードアウト
+		{
+			ease: easeInExpo,
+		},
+	);
+
+	// const y = useTransform(
+	// 	scrollYProgress,
+	// 	[0.3, 0.5, 0.7, 0.9],
+	// 	[0, -30, -50, -100], // 上方向への移動を調整
+	// 	{
+	// 		ease: easeInExpo,
+	// 	},
+	// );
+
+	// フェーズに基づいてスケールを適用
+	const finalScale = useTransform(phase, (currentPhase) => {
+		return currentPhase >= 2 ? scale.get() : 1;
 	});
 
 	// アニメーション完了の監視
@@ -144,9 +166,9 @@ export const ScrollTextAnimation = ({
 					<motion.div
 						className="w-full max-w-4xl px-4"
 						style={{
-							scale,
+							scale: finalScale,
 							opacity,
-							y,
+							// y,
 						}}
 					>
 						<svg

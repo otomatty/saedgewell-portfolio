@@ -7,9 +7,9 @@
 ## テーブル定義 (SQL)
 
 ```sql
-CREATE TABLE chat_messages (
+CREATE TABLE contact_chat_messages (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  chat_id UUID NOT NULL REFERENCES chats(id),
+  chat_id UUID NOT NULL REFERENCES contact_chats(id),
   sender_type VARCHAR(20) NOT NULL,
   message_text TEXT NOT NULL,
   file_id UUID REFERENCES files(id),
@@ -24,7 +24,7 @@ CREATE TABLE chat_messages (
 | カラム名                | データ型                 | 修飾子                                  | 説明                                                                 |
 | --------------------- | ----------------------- | ------------------------------------- | -------------------------------------------------------------------- |
 | `id`                  | `uuid`                  | PRIMARY KEY, DEFAULT: `gen_random_uuid()` | チャットメッセージID (UUID)                                                    |
-| `chat_id`             | `uuid`                  | NOT NULL, FOREIGN KEY -> `chats.id`      | チャットセッションID (`chats` テーブルの `id` を参照)                                   |
+| `chat_id`             | `uuid`                  | NOT NULL, FOREIGN KEY -> `contact_chats.id`      | チャットセッションID (`contact_chats` テーブルの `id` を参照)                                   |
 | `sender_type`         | `varchar(20)`          | NOT NULL, ENUM: `'user'`, `'assistant'`, `'admin'` | 送信者のタイプ (`user`, `assistant`, `admin` のいずれか)                       |
 | `message_text`        | `text`                  | NOT NULL                                | メッセージ本文                                                               |
 | `file_id`             | `uuid`                  | FOREIGN KEY -> `files.id`, NULLABLE      | ファイルID (`files` テーブルの `id` を参照, 添付ファイルがない場合は NULL)                     |
@@ -51,7 +51,7 @@ CREATE POLICY "Enable read access for authenticated users" ON chat_messages FOR 
 
 ### 親テーブル
 
-*   `chats` テーブル (多対1)
+*   `contact_chats` テーブル (多対1)
 *   `files` テーブル (多対1, nullable)
 *   `faqs` テーブル (多対1, nullable)
 

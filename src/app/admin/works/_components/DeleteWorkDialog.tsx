@@ -12,7 +12,7 @@ import {
 	AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { useToast } from "@/hooks/use-toast";
-import { deleteWork, deleteWorks } from "@/app/_actions/works";
+import { deleteWork, deleteWorks } from "@/_actions/works";
 
 interface DeleteWorkDialogProps {
 	workId?: string;

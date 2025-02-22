@@ -3,7 +3,7 @@ import {
 	getBlogStats,
 	getBlogPostsCountByCategory,
 	getDraftBlogPostsCount,
-} from "@/app/_actions/blog";
+} from "@/_actions/blog";
 import { StatsCard } from "./_components/stats-card";
 import { Book, BookOpenCheck, Tag, File } from "lucide-react";
 import { BlogPostList } from "./_components/blog-post-list";

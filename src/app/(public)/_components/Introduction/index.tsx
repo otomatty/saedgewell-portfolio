@@ -12,6 +12,11 @@ import {
 	TextIcon,
 } from "@radix-ui/react-icons";
 import { Notebook, Telescope } from "lucide-react";
+// Utils
+import { cn } from "@/lib/utils";
+// Types
+import type { Metric } from "@/types/metrics";
+// Components
 import { BentoGrid, MagicBentoCard } from "@/components/bento-grid";
 import { SectionTitle } from "@/components/custom/section-title";
 import { TechStackGrid } from "./components/TechStack";
@@ -19,15 +24,11 @@ import { NumberDisplay } from "./components/NumberCard";
 import { GitHubImages } from "./components/GitHubCard";
 import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 import { GridPattern } from "@/components/magicui/grid-pattern";
-import { CloisonnePattern } from "@/components/magicui/cloisonne-pattern";
+import { ShippoPattern } from "@/components/magicui/shippo-pattern";
 import { SeigaihaPattern } from "@/components/magicui/seigaiha-pattern";
 import { DotPattern } from "@/components/magicui/dot-pattern";
 import { Ripple } from "@/components/magicui/ripple";
 import { Particles } from "@/components/magicui/particles";
-import { InterestPattern } from "@/components/magicui/interest-pattern";
-import { NotePattern } from "@/components/magicui/note-pattern";
-import { cn } from "@/lib/utils";
-import type { Metric } from "@/types/metrics";
 
 interface IntroductionProps {
 	metrics: Metric[];
@@ -117,7 +118,7 @@ export const Introduction: React.FC<IntroductionProps> = ({ metrics }) => {
 			background: (
 				<div className="relative w-full h-full min-h-[150px]">
 					<NumberDisplay value={projectCount} unit="件" />
-					<CloisonnePattern
+					<ShippoPattern
 						className={cn(
 							"[mask-image:radial-gradient(150px_circle_at_center,white,transparent)]",
 						)}
@@ -188,13 +189,12 @@ export const Introduction: React.FC<IntroductionProps> = ({ metrics }) => {
 			cta: "リポジトリを見る",
 		},
 		{
-			name: "興味・関心",
+			name: "興味・価値観",
+			description: "興味と価値観",
 			className: "hidden lg:block lg:col-start-5 lg:col-span-2",
 			background: (
 				<div className="relative w-full h-full min-h-[150px] flex items-center justify-center">
-					<div className="absolute inset-0 w-full h-full scale-150">
-						<InterestPattern />
-					</div>
+					<div className="absolute inset-0 w-full h-full scale-150" />
 				</div>
 			),
 			Icon: Telescope,
@@ -202,14 +202,11 @@ export const Introduction: React.FC<IntroductionProps> = ({ metrics }) => {
 			cta: "詳しく見る",
 		},
 		{
-			name: "ノート",
+			name: "スガイのメモ",
+			description: "知識とアイデア",
 			className: "hidden lg:block lg:col-start-5 lg:col-span-2",
 			background: (
-				<div className="relative w-full h-full min-h-[150px] flex items-center justify-center">
-					<div className="absolute inset-0 w-full h-full scale-150">
-						<NotePattern />
-					</div>
-				</div>
+				<div className="relative w-full h-full min-h-[150px] flex items-center justify-center" />
 			),
 			Icon: Notebook,
 			href: "/note",

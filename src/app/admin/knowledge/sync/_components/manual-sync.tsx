@@ -5,10 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useToast } from "@/hooks/use-toast";
-import {
-	checkProjectExists,
-	registerProject,
-} from "@/app/_actions/knowledge-sync";
+import { checkProjectExists, registerProject } from "@/_actions/knowledge-sync";
 
 export function ManualSync() {
 	const [projectName, setProjectName] = useState("");

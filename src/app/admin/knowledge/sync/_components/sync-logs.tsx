@@ -12,7 +12,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import type { Database } from "@/types/supabase";
-import { getSyncLogs } from "@/app/_actions/knowledge-sync";
+import { getSyncLogs } from "@/_actions/knowledge-sync";
 type SyncLog = Database["public"]["Tables"]["knowledge_sync_logs"]["Row"];
 
 const columns = [

@@ -23,7 +23,7 @@ import { useCallback, useEffect, useState } from "react";
 import {
 	getProjectSyncSettings,
 	updateProjectSyncSettings,
-} from "@/app/_actions/knowledge-sync";
+} from "@/_actions/knowledge-sync";
 
 interface ProjectSettingsProps {
 	projectId: string;

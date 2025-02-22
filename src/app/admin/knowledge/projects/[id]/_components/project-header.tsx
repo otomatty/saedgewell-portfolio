@@ -8,7 +8,7 @@ import type { Database } from "@/types/supabase";
 
 type Project = Database["public"]["Tables"]["knowledge_projects"]["Row"];
 type ProjectStats = Awaited<
-	ReturnType<typeof import("@/app/_actions/knowledge").getProjectStats>
+	ReturnType<typeof import("@/_actions/knowledge").getProjectStats>
 >;
 
 interface ProjectHeaderProps {

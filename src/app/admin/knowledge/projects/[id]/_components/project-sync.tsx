@@ -9,12 +9,12 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { getProjectSyncLogs } from "@/app/_actions/knowledge";
+import { getProjectSyncLogs } from "@/_actions/knowledge";
 import {
 	syncProject,
 	updateProjectSyncSettings,
 	getProjectSyncSettings,
-} from "@/app/_actions/knowledge-sync";
+} from "@/_actions/knowledge-sync";
 import { useToast } from "@/hooks/use-toast";
 import type { Database } from "@/types/supabase";
 import { Skeleton } from "@/components/ui/skeleton";

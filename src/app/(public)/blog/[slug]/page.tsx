@@ -3,10 +3,7 @@ import { notFound } from "next/navigation";
 import { serialize } from "next-mdx-remote/serialize";
 import { BlogDetailHero } from "./_components/BlogDetailHero";
 import { BlogContent } from "./_components/BlogContent";
-import {
-	getPublishedSlugsForBuild,
-	getBlogPostBySlug,
-} from "@/app/_actions/blog";
+import { getPublishedSlugsForBuild, getBlogPostBySlug } from "@/_actions/blog";
 
 export async function generateStaticParams() {
 	const slugs = await getPublishedSlugsForBuild();

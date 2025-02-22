@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { updateWorkResponsibilities } from "@/app/_actions/works";
+import { updateWorkResponsibilities } from "@/_actions/works";
 import { Plus, Trash2 } from "lucide-react";
 
 const workResponsibilitySchema = z.object({

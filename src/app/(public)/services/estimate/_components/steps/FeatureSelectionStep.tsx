@@ -14,7 +14,7 @@ import {
 	selectedFeatureIdsAtom,
 	currentStepAtom,
 } from "../../_atoms/estimate";
-import { generateFeatures } from "@/app/_actions/estimate/generateFeatures";
+import { generateFeatures } from "@/_actions/estimate/generateFeatures";
 import { cn } from "@/lib/utils";
 import { CheckIcon, Loader2Icon, RefreshCw } from "lucide-react";
 import { Button } from "@/components/ui/button";

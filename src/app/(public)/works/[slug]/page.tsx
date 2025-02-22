@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getWorkBySlug, getWorkSlugsForBuild } from "@/app/_actions/works";
+import { getWorkBySlug, getWorkSlugsForBuild } from "@/_actions/works";
 import { WorkDetailHero } from "./_components/WorkDetailHero";
 import { WorkDetail } from "./_components/WorkDetail";
 

@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
-import { deleteSkillCategory } from "@/app/_actions/skill-categories";
+import { deleteSkillCategory } from "@/_actions/skill-categories";
 import type { SkillCategory } from "@/types/skill";
 
 interface Props {

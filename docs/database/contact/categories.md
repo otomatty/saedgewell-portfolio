@@ -7,7 +7,7 @@
 ## テーブル定義 (SQL)
 
 ```sql
-CREATE TABLE categories (
+CREATE TABLE contact_categories (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name VARCHAR(255) UNIQUE NOT NULL,
   description TEXT,
@@ -46,4 +46,4 @@ CREATE POLICY "Enable read access for all users" ON categories FOR SELECT USING 
 ### 子テーブル
 
 *   `faqs` テーブル (1対多)
-*   `chats` テーブル (1対多) 
+*   `contact_chats` テーブル (1対多) 

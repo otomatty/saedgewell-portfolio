@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { getWorks } from "@/app/_actions/works";
-import { getTechnologies } from "@/app/_actions/technologies";
+import { getWorks } from "@/_actions/works";
+import { getTechnologies } from "@/_actions/technologies";
 import { WorksHero } from "./_components/WorksHero";
 import { WorksFilter } from "./_components/WorksFilter";
 

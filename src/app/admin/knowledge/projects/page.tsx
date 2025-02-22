@@ -7,7 +7,7 @@ import {
 	getProjects,
 	getProjectStats,
 	deleteProject,
-} from "@/app/_actions/knowledge";
+} from "@/_actions/knowledge";
 
 async function ProjectListContainer() {
 	// プロジェクト一覧を取得

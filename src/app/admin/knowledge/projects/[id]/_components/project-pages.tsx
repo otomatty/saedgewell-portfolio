@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Eye, Link2, Star } from "lucide-react";
 import type { ColumnDef } from "@tanstack/react-table";
 import type { Database } from "@/types/supabase";
-import { getProjectPages } from "@/app/_actions/knowledge";
+import { getProjectPages } from "@/_actions/knowledge";
 import { useRouter } from "next/navigation";
 
 type KnowledgePage = Database["public"]["Tables"]["knowledge_pages"]["Row"] & {

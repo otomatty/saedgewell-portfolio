@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getWorkById } from "@/app/_actions/works";
+import { getWorkById } from "@/_actions/works";
 import { WorkFormTabs } from "../_components/form/WorkFormTabs";
 import { BackLink } from "@/components/custom/BackLink";
 

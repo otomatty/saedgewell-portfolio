@@ -169,7 +169,7 @@ export type Database = {
           },
         ]
       }
-      categories: {
+      contact_categories: {
         Row: {
           created_at: string | null
           description: string | null
@@ -193,7 +193,7 @@ export type Database = {
         }
         Relationships: []
       }
-      chat_messages: {
+      contact_chat_messages: {
         Row: {
           chat_id: string
           faq_id: string | null
@@ -226,7 +226,7 @@ export type Database = {
             foreignKeyName: "chat_messages_chat_id_fkey"
             columns: ["chat_id"]
             isOneToOne: false
-            referencedRelation: "chats"
+            referencedRelation: "contact_chats"
             referencedColumns: ["id"]
           },
           {
@@ -238,7 +238,7 @@ export type Database = {
           },
         ]
       }
-      chats: {
+      contact_chats: {
         Row: {
           category_id: string
           created_at: string | null
@@ -268,7 +268,7 @@ export type Database = {
             foreignKeyName: "chats_category_id_fkey"
             columns: ["category_id"]
             isOneToOne: false
-            referencedRelation: "categories"
+            referencedRelation: "contact_categories"
             referencedColumns: ["id"]
           },
           {
@@ -280,41 +280,198 @@ export type Database = {
           },
         ]
       }
-      contacts: {
+      email_attachments: {
         Row: {
-          company_name: string | null
+          attachment_id: string | null
           created_at: string | null
-          email: string
+          downloaded_at: string | null
+          email_id: string | null
+          file_name: string
+          file_path: string | null
+          file_size: number
+          file_type: string
           id: string
-          message: string
-          name: string
-          phone: string | null
-          status: string
-          type: string
+          is_downloaded: boolean | null
+        }
+        Insert: {
+          attachment_id?: string | null
+          created_at?: string | null
+          downloaded_at?: string | null
+          email_id?: string | null
+          file_name: string
+          file_path?: string | null
+          file_size: number
+          file_type: string
+          id?: string
+          is_downloaded?: boolean | null
+        }
+        Update: {
+          attachment_id?: string | null
+          created_at?: string | null
+          downloaded_at?: string | null
+          email_id?: string | null
+          file_name?: string
+          file_path?: string | null
+          file_size?: number
+          file_type?: string
+          id?: string
+          is_downloaded?: boolean | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "email_attachments_email_id_fkey"
+            columns: ["email_id"]
+            isOneToOne: false
+            referencedRelation: "emails"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      email_replies: {
+        Row: {
+          bcc_email: string[] | null
+          body_html: string | null
+          body_text: string | null
+          cc_email: string[] | null
+          created_at: string | null
+          from_email: string
+          gmail_message_id: string
+          id: string
+          original_email_id: string | null
+          sent_at: string
+          subject: string
+          to_email: string[]
+        }
+        Insert: {
+          bcc_email?: string[] | null
+          body_html?: string | null
+          body_text?: string | null
+          cc_email?: string[] | null
+          created_at?: string | null
+          from_email: string
+          gmail_message_id: string
+          id?: string
+          original_email_id?: string | null
+          sent_at: string
+          subject: string
+          to_email: string[]
+        }
+        Update: {
+          bcc_email?: string[] | null
+          body_html?: string | null
+          body_text?: string | null
+          cc_email?: string[] | null
+          created_at?: string | null
+          from_email?: string
+          gmail_message_id?: string
+          id?: string
+          original_email_id?: string | null
+          sent_at?: string
+          subject?: string
+          to_email?: string[]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "email_replies_original_email_id_fkey"
+            columns: ["original_email_id"]
+            isOneToOne: false
+            referencedRelation: "emails"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      email_settings: {
+        Row: {
+          auto_archive_after_days: number | null
+          created_at: string | null
+          id: string
+          last_sync_at: string | null
+          notification_enabled: boolean | null
+          signature: string | null
           updated_at: string | null
         }
         Insert: {
-          company_name?: string | null
+          auto_archive_after_days?: number | null
           created_at?: string | null
-          email: string
           id?: string
-          message: string
-          name: string
-          phone?: string | null
-          status?: string
-          type: string
+          last_sync_at?: string | null
+          notification_enabled?: boolean | null
+          signature?: string | null
           updated_at?: string | null
         }
         Update: {
-          company_name?: string | null
+          auto_archive_after_days?: number | null
           created_at?: string | null
-          email?: string
           id?: string
-          message?: string
-          name?: string
-          phone?: string | null
-          status?: string
-          type?: string
+          last_sync_at?: string | null
+          notification_enabled?: boolean | null
+          signature?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      emails: {
+        Row: {
+          bcc_email: string[] | null
+          body_html: string | null
+          body_text: string | null
+          cc_email: string[] | null
+          created_at: string | null
+          from_email: string
+          from_name: string | null
+          gmail_message_id: string
+          has_attachments: boolean | null
+          id: string
+          is_archived: boolean | null
+          is_read: boolean | null
+          is_starred: boolean | null
+          labels: string[] | null
+          received_at: string
+          subject: string
+          thread_id: string
+          to_email: string[]
+          updated_at: string | null
+        }
+        Insert: {
+          bcc_email?: string[] | null
+          body_html?: string | null
+          body_text?: string | null
+          cc_email?: string[] | null
+          created_at?: string | null
+          from_email: string
+          from_name?: string | null
+          gmail_message_id: string
+          has_attachments?: boolean | null
+          id?: string
+          is_archived?: boolean | null
+          is_read?: boolean | null
+          is_starred?: boolean | null
+          labels?: string[] | null
+          received_at: string
+          subject: string
+          thread_id: string
+          to_email: string[]
+          updated_at?: string | null
+        }
+        Update: {
+          bcc_email?: string[] | null
+          body_html?: string | null
+          body_text?: string | null
+          cc_email?: string[] | null
+          created_at?: string | null
+          from_email?: string
+          from_name?: string | null
+          gmail_message_id?: string
+          has_attachments?: boolean | null
+          id?: string
+          is_archived?: boolean | null
+          is_read?: boolean | null
+          is_starred?: boolean | null
+          labels?: string[] | null
+          received_at?: string
+          subject?: string
+          thread_id?: string
+          to_email?: string[]
           updated_at?: string | null
         }
         Relationships: []
@@ -456,15 +613,7 @@ export type Database = {
           total_cost?: number
           updated_at?: string | null
         }
-        Relationships: [
-          {
-            foreignKeyName: "estimates_contact_id_fkey"
-            columns: ["contact_id"]
-            isOneToOne: false
-            referencedRelation: "contacts"
-            referencedColumns: ["id"]
-          },
-        ]
+        Relationships: []
       }
       faqs: {
         Row: {
@@ -493,7 +642,7 @@ export type Database = {
             foreignKeyName: "faqs_category_id_fkey"
             columns: ["category_id"]
             isOneToOne: false
-            referencedRelation: "categories"
+            referencedRelation: "contact_categories"
             referencedColumns: ["id"]
           },
         ]
@@ -531,10 +680,139 @@ export type Database = {
             foreignKeyName: "files_message_id_fkey"
             columns: ["message_id"]
             isOneToOne: false
-            referencedRelation: "chat_messages"
+            referencedRelation: "contact_chat_messages"
             referencedColumns: ["id"]
           },
         ]
+      }
+      focus_intervals: {
+        Row: {
+          created_at: string | null
+          ended_at: string | null
+          id: string
+          interval_type: string
+          session_id: string
+          started_at: string
+        }
+        Insert: {
+          created_at?: string | null
+          ended_at?: string | null
+          id?: string
+          interval_type: string
+          session_id: string
+          started_at: string
+        }
+        Update: {
+          created_at?: string | null
+          ended_at?: string | null
+          id?: string
+          interval_type?: string
+          session_id?: string
+          started_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "focus_intervals_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "focus_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      focus_sessions: {
+        Row: {
+          created_at: string | null
+          ended_at: string | null
+          focus_score: number | null
+          id: string
+          knowledge_page_id: string | null
+          project_id: string | null
+          started_at: string
+          status: string
+          task_id: string | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          ended_at?: string | null
+          focus_score?: number | null
+          id?: string
+          knowledge_page_id?: string | null
+          project_id?: string | null
+          started_at: string
+          status: string
+          task_id?: string | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          ended_at?: string | null
+          focus_score?: number | null
+          id?: string
+          knowledge_page_id?: string | null
+          project_id?: string | null
+          started_at?: string
+          status?: string
+          task_id?: string | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "focus_sessions_knowledge_page_id_fkey"
+            columns: ["knowledge_page_id"]
+            isOneToOne: false
+            referencedRelation: "knowledge_pages"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "focus_sessions_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "focus_sessions_task_id_fkey"
+            columns: ["task_id"]
+            isOneToOne: false
+            referencedRelation: "tasks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      gmail_credentials: {
+        Row: {
+          access_token: string
+          created_at: string | null
+          expiry_date: string
+          id: string
+          refresh_token: string
+          token_type: string
+          updated_at: string | null
+        }
+        Insert: {
+          access_token: string
+          created_at?: string | null
+          expiry_date: string
+          id?: string
+          refresh_token: string
+          token_type: string
+          updated_at?: string | null
+        }
+        Update: {
+          access_token?: string
+          created_at?: string | null
+          expiry_date?: string
+          id?: string
+          refresh_token?: string
+          token_type?: string
+          updated_at?: string | null
+        }
+        Relationships: []
       }
       knowledge_page_collaborators: {
         Row: {
@@ -1082,6 +1360,39 @@ export type Database = {
         }
         Relationships: []
       }
+      projects: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          emoji: string | null
+          id: string
+          is_archived: boolean | null
+          name: string
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          emoji?: string | null
+          id?: string
+          is_archived?: boolean | null
+          name: string
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          emoji?: string | null
+          id?: string
+          is_archived?: boolean | null
+          name?: string
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       role_permissions: {
         Row: {
           created_at: string
@@ -1229,6 +1540,69 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      site_settings: {
+        Row: {
+          created_at: string
+          enable_blog: boolean
+          enable_contact: boolean
+          enable_estimate: boolean
+          enable_works: boolean
+          favicon_url: string | null
+          id: string
+          is_development_banner_enabled: boolean
+          last_modified_by: string | null
+          maintenance_mode: boolean
+          og_image_url: string | null
+          robots_txt_content: string | null
+          site_description: string
+          site_keywords: string[]
+          site_name: string
+          site_status: Database["public"]["Enums"]["site_status"]
+          social_links: Json
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          enable_blog?: boolean
+          enable_contact?: boolean
+          enable_estimate?: boolean
+          enable_works?: boolean
+          favicon_url?: string | null
+          id?: string
+          is_development_banner_enabled?: boolean
+          last_modified_by?: string | null
+          maintenance_mode?: boolean
+          og_image_url?: string | null
+          robots_txt_content?: string | null
+          site_description?: string
+          site_keywords?: string[]
+          site_name?: string
+          site_status?: Database["public"]["Enums"]["site_status"]
+          social_links?: Json
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          enable_blog?: boolean
+          enable_contact?: boolean
+          enable_estimate?: boolean
+          enable_works?: boolean
+          favicon_url?: string | null
+          id?: string
+          is_development_banner_enabled?: boolean
+          last_modified_by?: string | null
+          maintenance_mode?: boolean
+          og_image_url?: string | null
+          robots_txt_content?: string | null
+          site_description?: string
+          site_keywords?: string[]
+          site_name?: string
+          site_status?: Database["public"]["Enums"]["site_status"]
+          social_links?: Json
+          updated_at?: string
+        }
+        Relationships: []
       }
       skill_categories: {
         Row: {
@@ -1412,6 +1786,53 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      tasks: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          due_date: string | null
+          id: string
+          is_archived: boolean | null
+          priority: number | null
+          project_id: string
+          status: string
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          is_archived?: boolean | null
+          priority?: number | null
+          project_id: string
+          status?: string
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          is_archived?: boolean | null
+          priority?: number | null
+          project_id?: string
+          status?: string
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tasks_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       technologies: {
         Row: {
@@ -1945,6 +2366,10 @@ export type Database = {
             }
             Returns: undefined
           }
+      sync_knowledge_projects: {
+        Args: Record<PropertyKey, never>
+        Returns: undefined
+      }
     }
     Enums: {
       metric_type:
@@ -1952,6 +2377,7 @@ export type Database = {
         | "project_count"
         | "article_count"
         | "personal_project_count"
+      site_status: "development" | "staging" | "production"
     }
     CompositeTypes: {
       [_ in never]: never

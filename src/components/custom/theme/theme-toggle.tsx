@@ -12,6 +12,8 @@ import {
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+const THEME_COOKIE_NAME = "theme";
+
 export function ThemeToggle() {
 	const { theme, setTheme } = useTheme();
 	const [mounted, setMounted] = useState(false);
@@ -19,6 +21,11 @@ export function ThemeToggle() {
 	useEffect(() => {
 		setMounted(true);
 	}, []);
+
+	const handleThemeChange = (newTheme: string) => {
+		setTheme(newTheme);
+		document.cookie = `${THEME_COOKIE_NAME}=${newTheme}; path=/`;
+	};
 
 	if (!mounted) {
 		return (
@@ -54,15 +61,15 @@ export function ThemeToggle() {
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align="end">
-				<DropdownMenuItem onClick={() => setTheme("light")}>
+				<DropdownMenuItem onClick={() => handleThemeChange("light")}>
 					<Sun className="mr-2 h-[1.2rem] w-[1.2rem]" />
 					ライト
 				</DropdownMenuItem>
-				<DropdownMenuItem onClick={() => setTheme("dark")}>
+				<DropdownMenuItem onClick={() => handleThemeChange("dark")}>
 					<Moon className="mr-2 h-[1.2rem] w-[1.2rem]" />
 					ダーク
 				</DropdownMenuItem>
-				<DropdownMenuItem onClick={() => setTheme("system")}>
+				<DropdownMenuItem onClick={() => handleThemeChange("system")}>
 					<Monitor className="mr-2 h-[1.2rem] w-[1.2rem]" />
 					システム
 				</DropdownMenuItem>

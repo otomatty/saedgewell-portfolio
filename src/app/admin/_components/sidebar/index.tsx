@@ -1,20 +1,16 @@
 "use client";
 // library
 import type * as React from "react";
-import Link from "next/link";
 
 import { AdminNavMain } from "./nav-main";
 import { AdminNavUser } from "./nav-user";
+import { AdminSidebarHeader } from "./sidebar-header";
 import {
 	Sidebar,
 	SidebarContent,
-	SidebarHeader,
 	SidebarFooter,
-	SidebarRail,
-	SidebarSeparator,
 } from "@/components/ui/sidebar";
-import { DatePicker } from "./date-picker";
-import { Calendars } from "./calendars";
+
 import type { Profile } from "@/types/profile";
 import { navItems } from "./nav-items";
 
@@ -23,23 +19,12 @@ export function AdminSidebar({
 	...props
 }: React.ComponentProps<typeof Sidebar> & { profile: Profile }) {
 	return (
-		<Sidebar collapsible="icon" {...props}>
-			<SidebarHeader>
-				<div className="flex h-14 items-center justify-center">
-					<h1 className="text-xl font-bold">
-						<Link href="/admin">Saedgewell</Link>
-					</h1>
-				</div>
-			</SidebarHeader>
+		<Sidebar collapsible="icon" {...props} className="w-64 border-r">
+			<AdminSidebarHeader />
 			<SidebarContent>
-				<DatePicker />
-				<SidebarSeparator className="mx-0" />
-				<SidebarSeparator />
 				<AdminNavMain items={navItems} />
 			</SidebarContent>
-
-			<SidebarRail />
-			<SidebarFooter>
+			<SidebarFooter className="border-t">
 				<AdminNavUser profile={profile} />
 			</SidebarFooter>
 		</Sidebar>

@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Header } from "./_layout/Header";
 import { Footer } from "./_layout/Footer";
-import { ScrollToTop } from "@/components/custom/scroll-to-top";
-import { getProfileOnTop } from "../_actions/profile";
+import { getProfileOnTop } from "../../_actions/profile";
+
 export const metadata: Metadata = {
 	title: {
 		default: "Saedgewell | 菅井瑛正",
@@ -29,7 +29,6 @@ export default async function RootLayout({
 		<>
 			<Header profile={profile} />
 			<main className="flex-1">{children}</main>
-			<ScrollToTop />
 			<Footer />
 		</>
 	);

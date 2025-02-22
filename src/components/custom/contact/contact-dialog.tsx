@@ -3,13 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { ResponsiveDialog } from "@/components/custom/responsive-dialog";
 import { ContactChat, type Category } from "./contact-chat";
-import {
-	MessageCircle,
-	HelpCircle,
-	FileQuestion,
-	Settings,
-	Mail,
-} from "lucide-react";
+import { HelpCircle, Settings, Mail } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
 // サンプルカテゴリー（実際の実装では外部から注入）

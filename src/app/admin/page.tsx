@@ -1,8 +1,8 @@
 import { Suspense } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
-import { getUsers } from "@/app/_actions/users";
-import { getAdminStats } from "@/app/_actions/admin";
+import { getUsers } from "@/_actions/users";
+import { getAdminStats } from "@/_actions/admin";
 import { DataTable } from "@/components/ui/data-table";
 import { UserFilter } from "./_components/user-filter";
 import { columns } from "./_components/columns";

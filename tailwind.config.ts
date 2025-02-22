@@ -245,6 +245,14 @@ const config = {
 						"background-position": "100% 50%",
 					},
 				},
+				"spin-reverse": {
+					from: {
+						transform: "rotate(360deg)",
+					},
+					to: {
+						transform: "rotate(0deg)",
+					},
+				},
 			},
 			animation: {
 				"accordion-down": "accordion-down 0.2s ease-out",
@@ -260,6 +268,8 @@ const config = {
 					"background-position-spin 3000ms infinite alternate",
 				meteor: "meteor 5s linear infinite",
 				aurora: "aurora-gradient 6s ease-in-out infinite",
+				"spin-clockwise": "spin 20s linear infinite",
+				"spin-counterclockwise": "spin-reverse 20s linear infinite",
 			},
 		},
 	},

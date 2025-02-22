@@ -7,7 +7,7 @@ import { CategoryForm } from "./category-form";
 import {
 	createSkillCategory,
 	updateSkillCategory,
-} from "@/app/_actions/skill-categories";
+} from "@/_actions/skill-categories";
 import type { SkillCategory } from "@/types/skill";
 
 interface Props {

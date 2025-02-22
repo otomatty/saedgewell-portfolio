@@ -1,6 +1,6 @@
 import { Suspense } from "react";
-import { getSkills } from "@/app/_actions/skills";
-import { getSkillCategories } from "@/app/_actions/skill-categories";
+import { getSkills } from "@/_actions/skills";
+import { getSkillCategories } from "@/_actions/skill-categories";
 import { SkillsView } from "./_components/skills-view";
 import { Skeleton } from "@/components/ui/skeleton";
 

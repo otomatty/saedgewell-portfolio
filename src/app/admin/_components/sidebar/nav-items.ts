@@ -6,124 +6,106 @@ import {
 	Users,
 	Briefcase,
 	BookOpen,
+	MessageSquare,
+	CheckSquare,
+	MessageCircle,
+	GraduationCap,
+	Folder,
+	Play,
 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+interface NavItem {
+	title: string;
+	url: string;
+	icon: LucideIcon;
+	category?: string;
+	dbName?: string;
+}
 
-export const navItems = [
+export const navItems: NavItem[] = [
 	{
-		title: "実績管理",
+		title: "ダッシュボード",
+		url: "/admin",
+		icon: LayoutDashboard,
+	},
+	// 作業カテゴリー
+	{
+		title: "プロジェクト",
+		url: "/admin/projects",
+		icon: Folder,
+		category: "作業",
+		dbName: "projects",
+	},
+	{
+		title: "タスク",
+		url: "/admin/tasks",
+		icon: CheckSquare,
+		category: "作業",
+		dbName: "tasks",
+	},
+	// 顧客対応カテゴリー
+	{
+		title: "チャット",
+		url: "/admin/chat",
+		icon: MessageCircle,
+		category: "顧客対応",
+		dbName: "chat",
+	},
+	{
+		title: "お問い合わせ",
+		url: "/admin/contacts",
+		icon: MessageSquare,
+		category: "顧客対応",
+		dbName: "contacts",
+	},
+	{
+		title: "メール",
+		url: "/admin/emails",
+		icon: Mail,
+		category: "顧客対応",
+		dbName: "emails",
+	},
+	// ポートフォリオカテゴリー
+	{
+		title: "実績",
 		url: "/admin/works",
 		icon: Briefcase,
-		items: [
-			{
-				title: "実績一覧",
-				url: "/admin/works",
-			},
-			{
-				title: "新規作成",
-				url: "/admin/works/new",
-			},
-		],
+		category: "ポートフォリオ",
+		dbName: "works",
 	},
 	{
-		title: "ナレッジ管理",
+		title: "ナレッジ",
 		url: "/admin/knowledge",
 		icon: BookOpen,
-		items: [
-			{
-				title: "ナレッジトップ",
-				url: "/admin/knowledge",
-			},
-			{
-				title: "プロジェクト一覧",
-				url: "/admin/knowledge/projects",
-			},
-			{
-				title: "ページ一覧",
-				url: "/admin/knowledge/pages",
-			},
-			{
-				title: "同期",
-				url: "/admin/knowledge/sync",
-			},
-		],
+		category: "ポートフォリオ",
+		dbName: "knowledge",
 	},
 	{
-		title: "記事管理",
+		title: "記事",
 		url: "/admin/posts",
 		icon: FileText,
-		items: [
-			{
-				title: "記事一覧",
-				url: "/admin/posts",
-			},
-			{
-				title: "新規作成",
-				url: "/admin/posts/new",
-			},
-			{
-				title: "カテゴリー管理",
-				url: "/admin/posts/categories",
-			},
-		],
+		category: "ポートフォリオ",
+		dbName: "posts",
 	},
 	{
-		title: "お問い合わせ管理",
-		url: "/admin/contacts",
-		icon: Mail,
-		items: [
-			{
-				title: "受信一覧",
-				url: "/admin/contacts",
-			},
-			{
-				title: "対応済み",
-				url: "/admin/contacts/resolved",
-			},
-		],
-	},
-	{
-		title: "ユーザー管理",
+		title: "ユーザー",
 		url: "/admin/users",
 		icon: Users,
-		items: [
-			{
-				title: "ユーザー一覧",
-				url: "/admin/users",
-			},
-			{
-				title: "ロール管理",
-				url: "/admin/users/roles",
-			},
-		],
+		category: "ポートフォリオ",
+		dbName: "users",
 	},
 	{
-		title: "スキル管理",
+		title: "スキル",
 		url: "/admin/skills",
-		icon: Briefcase,
-		items: [
-			{
-				title: "スキル一覧",
-				url: "/admin/skills",
-			},
-			{
-				title: "新規作成",
-				url: "/admin/skills/new",
-			},
-		],
+		icon: GraduationCap,
+		category: "ポートフォリオ",
+		dbName: "skills",
 	},
 	{
 		title: "設定",
 		url: "/admin/settings",
 		icon: Settings,
-		items: [
-			{
-				title: "一般設定",
-				url: "/admin/settings",
-			},
-			{
-				title: "サイト設定",
-				url: "/admin/settings/site",
-			},
-		],
+		category: "ポートフォリオ",
+		dbName: "settings",
 	},
 ];

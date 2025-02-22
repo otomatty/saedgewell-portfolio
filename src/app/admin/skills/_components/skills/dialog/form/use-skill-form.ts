@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import type { Skill } from "@/types/skill";
-import { createSkill, updateSkill } from "@/app/_actions/skills";
+import { createSkill, updateSkill } from "@/_actions/skills";
 import type { ManualSkillFormData } from "./manual-skill-form";
 
 interface UseSkillFormProps {

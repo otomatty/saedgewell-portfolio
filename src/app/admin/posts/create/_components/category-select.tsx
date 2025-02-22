@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { getBlogCategories } from "@/app/_actions/blog";
+import { getBlogCategories } from "@/_actions/blog";
 import {
 	Select,
 	SelectContent,

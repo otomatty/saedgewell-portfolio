@@ -26,7 +26,7 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { updateWork } from "@/app/_actions/works";
+import { updateWork } from "@/_actions/works";
 
 const workBasicFormSchema = z.object({
 	title: z

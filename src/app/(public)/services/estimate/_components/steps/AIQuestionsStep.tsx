@@ -10,7 +10,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import { aiQuestionsAtom, formDataAtom } from "../../_atoms/estimate";
-import { generateQuestions } from "@/app/_actions/estimate/generateQuestions";
+import { generateQuestions } from "@/_actions/estimate/generateQuestions";
 
 export function AIQuestionsStep() {
 	const [questions, setQuestions] = useAtom(aiQuestionsAtom);

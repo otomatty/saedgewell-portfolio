@@ -19,7 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { updateWorkDetail } from "@/app/_actions/works";
+import { updateWorkDetail } from "@/_actions/works";
 
 const workDetailFormSchema = z.object({
 	overview: z

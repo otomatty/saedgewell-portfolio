@@ -1,4 +1,4 @@
-import { syncProject } from "@/app/_actions/knowledge-sync";
+import { syncProject } from "@/_actions/knowledge-sync";
 import { NextResponse } from "next/server";
 
 /**

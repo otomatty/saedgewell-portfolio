@@ -1,4 +1,4 @@
-import { getBlogCategories } from "@/app/_actions/blog";
+import { getBlogCategories } from "@/_actions/blog";
 import { CategoryList } from "./_components/category-list";
 import CategoryCreateForm from "./_components/category-create-form";
 

@@ -9,7 +9,7 @@ import { BackLink } from "@/components/custom/BackLink";
 import {
 	getKnowledgePageDetail,
 	getKnowledgePageLinks,
-} from "@/app/_actions/knowledge-pages";
+} from "@/_actions/knowledge-pages";
 
 interface Props {
 	params: Promise<{

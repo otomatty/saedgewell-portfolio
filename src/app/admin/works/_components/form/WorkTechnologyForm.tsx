@@ -33,7 +33,7 @@ import { Badge } from "@/components/ui/badge";
 import { Check, ChevronsUpDown, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useToast } from "@/hooks/use-toast";
-import { updateWorkTechnologies } from "@/app/_actions/works";
+import { updateWorkTechnologies } from "@/_actions/works";
 
 const workTechnologyFormSchema = z.object({
 	technologies: z.array(z.string()),

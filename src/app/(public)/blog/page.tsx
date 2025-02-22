@@ -3,7 +3,7 @@ import { BlogHero } from "./_components/BlogHero";
 import { BlogCard } from "./_components/BlogCard";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { getBlogPosts, getBlogCategories } from "@/app/_actions/blog";
+import { getBlogPosts, getBlogCategories } from "@/_actions/blog";
 
 export const metadata: Metadata = {
 	title: "Blog",

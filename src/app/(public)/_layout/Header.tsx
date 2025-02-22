@@ -20,14 +20,6 @@ interface HeaderProps {
 export const Header = ({ profile }: HeaderProps) => {
 	const { isLoading, isAuthenticated } = useAuth(profile);
 
-	// デバッグ情報の出力
-	console.log("[Header] Debug Info:", {
-		profile,
-		isLoading,
-		isAuthenticated,
-		timestamp: new Date().toISOString(),
-	});
-
 	return (
 		<motion.header
 			initial={{ y: -100 }}
