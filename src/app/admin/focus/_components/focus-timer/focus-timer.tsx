@@ -115,11 +115,13 @@ export default function FocusTimer({ initialSessions }: FocusTimerProps) {
 						currentSession={currentSession}
 						previousSessions={timelineSessions}
 					/>
-					<FocusTimeline
-						sessions={timelineSessions}
-						currentSession={currentSession}
-					/>
 				</div>
+
+				{/* Focus Timeline */}
+				<FocusTimeline
+					sessions={timelineSessions}
+					currentSession={currentSession}
+				/>
 			</div>
 		</div>
 	);

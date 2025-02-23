@@ -1360,6 +1360,158 @@ export type Database = {
         }
         Relationships: []
       }
+      project_github_integrations: {
+        Row: {
+          access_token: string | null
+          branch: string
+          created_at: string | null
+          id: string
+          last_commit_sha: string | null
+          last_synced_at: string | null
+          project_id: string
+          repository_name: string
+          repository_owner: string
+          repository_url: string
+          updated_at: string | null
+          webhook_secret: string | null
+        }
+        Insert: {
+          access_token?: string | null
+          branch?: string
+          created_at?: string | null
+          id?: string
+          last_commit_sha?: string | null
+          last_synced_at?: string | null
+          project_id: string
+          repository_name: string
+          repository_owner: string
+          repository_url: string
+          updated_at?: string | null
+          webhook_secret?: string | null
+        }
+        Update: {
+          access_token?: string | null
+          branch?: string
+          created_at?: string | null
+          id?: string
+          last_commit_sha?: string | null
+          last_synced_at?: string | null
+          project_id?: string
+          repository_name?: string
+          repository_owner?: string
+          repository_url?: string
+          updated_at?: string | null
+          webhook_secret?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_github_integrations_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: true
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      project_milestones: {
+        Row: {
+          created_at: string | null
+          description: string | null
+          due_date: string | null
+          id: string
+          progress: number | null
+          project_id: string
+          status: string
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          progress?: number | null
+          project_id: string
+          status: string
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          progress?: number | null
+          project_id?: string
+          status?: string
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_milestones_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      project_progress_logs: {
+        Row: {
+          created_at: string | null
+          description: string
+          hours_spent: number | null
+          id: string
+          log_type: string
+          milestone_id: string | null
+          project_id: string
+          task_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description: string
+          hours_spent?: number | null
+          id?: string
+          log_type: string
+          milestone_id?: string | null
+          project_id: string
+          task_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string
+          hours_spent?: number | null
+          id?: string
+          log_type?: string
+          milestone_id?: string | null
+          project_id?: string
+          task_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_progress_logs_milestone_id_fkey"
+            columns: ["milestone_id"]
+            isOneToOne: false
+            referencedRelation: "project_milestones"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "project_progress_logs_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "project_progress_logs_task_id_fkey"
+            columns: ["task_id"]
+            isOneToOne: false
+            referencedRelation: "tasks"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       projects: {
         Row: {
           created_at: string | null

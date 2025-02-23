@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { format, subHours, addHours } from "date-fns";
 import { ja } from "date-fns/locale";
-import { cn } from "@/lib/utils";
+import { formatTimerDisplay } from "@/utils/timer-format";
 
 interface FocusSession {
 	startedAt: Date;
@@ -76,30 +76,65 @@ export function RealTimeTimeline({
 
 			{/* 過去のセッション */}
 			{previousSessions.map((session) => (
-				<div
-					key={session.startedAt.getTime()}
-					className="absolute h-2 bg-primary/30 rounded-full left-6 w-6"
-					style={{
-						top: `${calculatePosition(session.startedAt)}%`,
-						height: `${
-							calculatePosition(session.endedAt || session.startedAt) -
-							calculatePosition(session.startedAt)
-						}%`,
-						width: "4px",
-					}}
-				/>
+				<div key={session.startedAt.getTime()} className="group relative">
+					<div
+						className="absolute h-2 bg-primary/30 rounded-full left-6"
+						style={{
+							top: `${calculatePosition(session.startedAt)}%`,
+							height: `${
+								calculatePosition(session.endedAt || session.startedAt) -
+								calculatePosition(session.startedAt)
+							}%`,
+							width: "4px",
+						}}
+					/>
+					{/* セッションログ */}
+					<div
+						className="absolute left-12 bg-card rounded-md p-2 shadow-sm border text-xs"
+						style={{
+							top: `${calculatePosition(session.startedAt)}%`,
+							transform: "translateY(-50%)",
+						}}
+					>
+						<div className="font-medium">
+							{format(session.startedAt, "HH:mm", { locale: ja })} -{" "}
+							{format(session.endedAt || now, "HH:mm", { locale: ja })}
+						</div>
+						<div className="text-muted-foreground">
+							{formatTimerDisplay(session.duration)}の集中
+						</div>
+					</div>
+				</div>
 			))}
 
 			{/* 現在のセッション */}
 			{currentSession && (
-				<div
-					className="absolute bg-primary animate-pulse rounded-full left-6"
-					style={{
-						top: `${calculatePosition(currentSession.startedAt)}%`,
-						height: `${calculatePosition(now) - calculatePosition(currentSession.startedAt)}%`,
-						width: "4px",
-					}}
-				/>
+				<div className="group relative">
+					<div
+						className="absolute bg-primary animate-pulse rounded-full left-6"
+						style={{
+							top: `${calculatePosition(currentSession.startedAt)}%`,
+							height: `${calculatePosition(now) - calculatePosition(currentSession.startedAt)}%`,
+							width: "4px",
+						}}
+					/>
+					{/* 現在のセッションログ */}
+					<div
+						className="absolute left-12 bg-card rounded-md p-2 shadow-sm border text-xs"
+						style={{
+							top: `${calculatePosition(currentSession.startedAt)}%`,
+							transform: "translateY(-50%)",
+						}}
+					>
+						<div className="font-medium">
+							{format(currentSession.startedAt, "HH:mm", { locale: ja })} -
+							集中中
+						</div>
+						<div className="text-muted-foreground">
+							{formatTimerDisplay(currentSession.duration)}経過
+						</div>
+					</div>
+				</div>
 			)}
 
 			{/* 現在時刻のインジケーター */}
