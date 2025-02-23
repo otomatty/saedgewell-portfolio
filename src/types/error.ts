@@ -32,3 +32,9 @@ export const FOCUS_ERROR_MESSAGES = {
 	INTERVAL_CREATE_FAILED: "インターバルの作成に失敗しました",
 	INTERVAL_UPDATE_FAILED: "インターバルの更新に失敗しました",
 } as const;
+
+export interface ApiError {
+	message: string;
+	status: number;
+	details?: unknown;
+}
