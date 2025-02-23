@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { LucideIcon } from "lucide-react";
 import { Play, Folder } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 import {
 	SidebarGroup,
@@ -32,6 +33,11 @@ interface NavItem {
 
 interface AdminNavMainProps {
 	items: NavItem[];
+	projects: Array<{
+		id: string;
+		name: string;
+		emoji: string;
+	}>;
 }
 
 // パスが一致するかどうかを確認するユーティリティ関数
@@ -44,26 +50,7 @@ function isActiveLink(currentPath: string, itemPath: string): boolean {
 	return currentPath.startsWith(itemPath);
 }
 
-// サンプルプロジェクトデータ
-const sampleProjects = [
-	{
-		name: "ポートフォリオサイト",
-		url: "/admin/projects/portfolio",
-		emoji: "🎨",
-	},
-	{
-		name: "ECサイト",
-		url: "/admin/projects/ec",
-		emoji: "🛍️",
-	},
-	{
-		name: "SNSアプリ",
-		url: "/admin/projects/sns",
-		emoji: "💬",
-	},
-];
-
-export function AdminNavMain({ items }: AdminNavMainProps) {
+export function AdminNavMain({ items, projects }: AdminNavMainProps) {
 	const pathname = usePathname();
 	const { state } = useSidebar();
 	const isCollapsed = state === "collapsed";
@@ -75,6 +62,14 @@ export function AdminNavMain({ items }: AdminNavMainProps) {
 	const portfolioItems = items.filter(
 		(item) => item.category === "ポートフォリオ",
 	);
+	const settingsItems = items.filter((item) => item.category === "設定");
+
+	// プロジェクトデータを変換
+	const formattedProjects = projects.map((project) => ({
+		name: project.name,
+		url: `/admin/projects/${project.id}`,
+		emoji: project.emoji,
+	}));
 
 	return (
 		<>
@@ -135,7 +130,14 @@ export function AdminNavMain({ items }: AdminNavMainProps) {
 										<item.icon className="h-4 w-4" />
 										<span className="flex-1">{item.title}</span>
 										{item.dbName && (
-											<span className="text-xs text-muted-foreground">
+											<span
+												className={cn(
+													"text-xs",
+													isActiveLink(pathname, item.url)
+														? "text-primary-foreground/80"
+														: "text-muted-foreground",
+												)}
+											>
 												{item.dbName}
 											</span>
 										)}
@@ -148,7 +150,7 @@ export function AdminNavMain({ items }: AdminNavMainProps) {
 			)}
 			<SidebarSeparator />
 			{/* プロジェクト一覧 */}
-			<NavProjects projects={sampleProjects} />
+			<NavProjects projects={formattedProjects} />
 
 			<SidebarSeparator />
 			{/* 顧客対応カテゴリー */}
@@ -166,7 +168,14 @@ export function AdminNavMain({ items }: AdminNavMainProps) {
 										<item.icon className="h-4 w-4" />
 										<span className="flex-1">{item.title}</span>
 										{item.dbName && (
-											<span className="text-xs text-muted-foreground">
+											<span
+												className={cn(
+													"text-xs",
+													isActiveLink(pathname, item.url)
+														? "text-primary-foreground/80"
+														: "text-muted-foreground",
+												)}
+											>
 												{item.dbName}
 											</span>
 										)}
@@ -193,10 +202,39 @@ export function AdminNavMain({ items }: AdminNavMainProps) {
 										<item.icon className="h-4 w-4" />
 										<span className="flex-1">{item.title}</span>
 										{item.dbName && (
-											<span className="text-xs text-muted-foreground">
+											<span
+												className={cn(
+													"text-xs",
+													isActiveLink(pathname, item.url)
+														? "text-primary-foreground/80"
+														: "text-muted-foreground",
+												)}
+											>
 												{item.dbName}
 											</span>
 										)}
+									</Link>
+								</SidebarMenuButton>
+							</SidebarMenuItem>
+						))}
+					</SidebarMenu>
+				</SidebarGroup>
+			)}
+			<SidebarSeparator />
+			{/* 設定カテゴリー */}
+			{settingsItems.length > 0 && (
+				<SidebarGroup>
+					<SidebarGroupLabel>設定</SidebarGroupLabel>
+					<SidebarMenu>
+						{settingsItems.map((item) => (
+							<SidebarMenuItem key={item.url}>
+								<SidebarMenuButton
+									asChild
+									isActive={isActiveLink(pathname, item.url)}
+								>
+									<Link href={item.url} className="flex items-center gap-2">
+										<item.icon className="h-4 w-4" />
+										<span className="flex-1">{item.title}</span>
 									</Link>
 								</SidebarMenuButton>
 							</SidebarMenuItem>

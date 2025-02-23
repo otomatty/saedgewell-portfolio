@@ -784,6 +784,75 @@ export type Database = {
           },
         ]
       }
+      github_contributions: {
+        Row: {
+          commit_count: number
+          contribution_count: number
+          contribution_date: string
+          created_at: string
+          id: string
+          lines_added: number
+          lines_deleted: number
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          commit_count?: number
+          contribution_count?: number
+          contribution_date: string
+          created_at?: string
+          id?: string
+          lines_added?: number
+          lines_deleted?: number
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          commit_count?: number
+          contribution_count?: number
+          contribution_date?: string
+          created_at?: string
+          id?: string
+          lines_added?: number
+          lines_deleted?: number
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      github_settings: {
+        Row: {
+          access_token: string
+          auto_sync: boolean | null
+          created_at: string | null
+          id: string
+          last_synced_at: string | null
+          updated_at: string | null
+          user_id: string | null
+          username: string
+        }
+        Insert: {
+          access_token: string
+          auto_sync?: boolean | null
+          created_at?: string | null
+          id?: string
+          last_synced_at?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+          username: string
+        }
+        Update: {
+          access_token?: string
+          auto_sync?: boolean | null
+          created_at?: string | null
+          id?: string
+          last_synced_at?: string | null
+          updated_at?: string | null
+          user_id?: string | null
+          username?: string
+        }
+        Relationships: []
+      }
       gmail_credentials: {
         Row: {
           access_token: string
@@ -1519,6 +1588,7 @@ export type Database = {
           emoji: string | null
           id: string
           is_archived: boolean | null
+          last_activity_at: string
           name: string
           updated_at: string | null
           user_id: string
@@ -1529,6 +1599,7 @@ export type Database = {
           emoji?: string | null
           id?: string
           is_archived?: boolean | null
+          last_activity_at?: string
           name: string
           updated_at?: string | null
           user_id: string
@@ -1539,6 +1610,7 @@ export type Database = {
           emoji?: string | null
           id?: string
           is_archived?: boolean | null
+          last_activity_at?: string
           name?: string
           updated_at?: string | null
           user_id?: string
@@ -1936,6 +2008,30 @@ export type Database = {
           slug?: string
           started_at?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      sync_errors: {
+        Row: {
+          created_at: string | null
+          error_message: string
+          id: string
+          resolved_at: string | null
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          error_message: string
+          id?: string
+          resolved_at?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          error_message?: string
+          id?: string
+          resolved_at?: string | null
+          user_id?: string | null
         }
         Relationships: []
       }

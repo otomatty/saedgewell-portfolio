@@ -8,6 +8,7 @@ export interface Project {
 	isArchived: boolean;
 	createdAt: Date;
 	updatedAt: Date;
+	lastActivityAt: Date;
 }
 
 export type CreateProjectInput = Pick<

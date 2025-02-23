@@ -11,7 +11,8 @@ import {
 	MessageCircle,
 	GraduationCap,
 	Folder,
-	Play,
+	AppWindow,
+	Github,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 interface NavItem {
@@ -101,11 +102,24 @@ export const navItems: NavItem[] = [
 		category: "ポートフォリオ",
 		dbName: "skills",
 	},
+	// 設定
 	{
 		title: "設定",
 		url: "/admin/settings",
 		icon: Settings,
-		category: "ポートフォリオ",
+		category: "設定",
 		dbName: "settings",
+	},
+	{
+		title: "サイト設定",
+		url: "/admin/settings/site",
+		icon: AppWindow,
+		category: "設定",
+	},
+	{
+		title: "Github",
+		url: "/admin/settings/github",
+		icon: Github,
+		category: "設定",
 	},
 ];

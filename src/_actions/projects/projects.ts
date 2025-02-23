@@ -10,7 +10,7 @@ export async function getProjects() {
 		const { data, error } = await supabase
 			.from("projects")
 			.select("*")
-			.order("created_at", { ascending: false });
+			.order("last_activity_at", { ascending: false });
 
 		if (error) throw error;
 		return { data, error: null };

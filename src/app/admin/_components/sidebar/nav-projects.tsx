@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 import {
 	SidebarGroup,
@@ -29,21 +30,28 @@ export function NavProjects({ projects }: { projects: Project[] }) {
 		<SidebarGroup>
 			<SidebarGroupLabel>プロジェクト</SidebarGroupLabel>
 			<SidebarMenu>
-				{projects.map((item) => (
-					<SidebarMenuItem key={item.name}>
-						<SidebarMenuButton
-							asChild
-							isActive={isActiveLink(pathname, item.url)}
-						>
-							<Link href={item.url} className="flex items-center gap-2">
-								<span className="flex h-4 w-4 items-center justify-center text-base leading-none">
-									{item.emoji}
-								</span>
-								<span className="flex-1">{item.name}</span>
-							</Link>
-						</SidebarMenuButton>
-					</SidebarMenuItem>
-				))}
+				{projects.map((item) => {
+					const isActive = isActiveLink(pathname, item.url);
+					return (
+						<SidebarMenuItem key={item.name}>
+							<SidebarMenuButton
+								asChild
+								className={cn(
+									"relative",
+									isActive &&
+										"after:absolute after:right-2 after:top-1/2 after:h-2 after:w-2 after:-translate-y-1/2 after:rounded-full after:bg-primary after:content-['']",
+								)}
+							>
+								<Link href={item.url} className="flex items-center gap-2">
+									<span className="flex h-4 w-4 items-center justify-center text-base leading-none">
+										{item.emoji}
+									</span>
+									<span className="flex-1">{item.name}</span>
+								</Link>
+							</SidebarMenuButton>
+						</SidebarMenuItem>
+					);
+				})}
 			</SidebarMenu>
 		</SidebarGroup>
 	);

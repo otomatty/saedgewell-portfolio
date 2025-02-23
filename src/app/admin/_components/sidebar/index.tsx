@@ -14,15 +14,25 @@ import {
 import type { Profile } from "@/types/profile";
 import { navItems } from "./nav-items";
 
+interface AdminSidebarProps extends React.ComponentProps<typeof Sidebar> {
+	profile: Profile;
+	projects: Array<{
+		id: string;
+		name: string;
+		emoji: string;
+	}>;
+}
+
 export function AdminSidebar({
 	profile,
+	projects,
 	...props
-}: React.ComponentProps<typeof Sidebar> & { profile: Profile }) {
+}: AdminSidebarProps) {
 	return (
 		<Sidebar collapsible="icon" {...props} className="w-64 border-r">
 			<AdminSidebarHeader />
 			<SidebarContent>
-				<AdminNavMain items={navItems} />
+				<AdminNavMain items={navItems} projects={projects} />
 			</SidebarContent>
 			<SidebarFooter className="border-t">
 				<AdminNavUser profile={profile} />

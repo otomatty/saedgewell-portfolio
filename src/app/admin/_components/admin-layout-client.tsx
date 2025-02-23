@@ -10,17 +10,23 @@ import { sidebarOpenAtom } from "@/store/sidebar";
 interface AdminLayoutClientProps {
 	children: React.ReactNode;
 	profile: Profile;
+	projects: Array<{
+		id: string;
+		name: string;
+		emoji: string;
+	}>;
 }
 
 export function AdminLayoutClient({
 	children,
 	profile,
+	projects,
 }: AdminLayoutClientProps) {
 	const [open, setOpen] = useAtom(sidebarOpenAtom);
 
 	return (
 		<SidebarProvider open={open} onOpenChange={setOpen}>
-			<AdminSidebar profile={profile} />
+			<AdminSidebar profile={profile} projects={projects} />
 			<SidebarInset>
 				<AdminHeader
 					breadcrumbs={[

@@ -2,7 +2,7 @@
 
 import { getProjects } from "@/_actions/projects/projects";
 import { ProjectCard } from "./ProjectCard";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import type { Project } from "@/types/project";
 
 export function ProjectList() {
@@ -21,12 +21,26 @@ export function ProjectList() {
 					isArchived: project.is_archived || false,
 					createdAt: new Date(project.created_at || new Date()),
 					updatedAt: new Date(project.updated_at || new Date()),
+					lastActivityAt: new Date(
+						project.last_activity_at || project.updated_at || new Date(),
+					),
 				}));
 				setProjects(convertedProjects);
 			}
 		}
 		fetchProjects();
 	}, []);
+
+	const sortedProjects = useMemo(() => {
+		return [...projects].sort((a, b) => {
+			// アーカイブされたプロジェクトは後ろに
+			if (a.isArchived !== b.isArchived) {
+				return a.isArchived ? 1 : -1;
+			}
+			// 最後のアクティビティ日時で降順ソート
+			return b.lastActivityAt.getTime() - a.lastActivityAt.getTime();
+		});
+	}, [projects]);
 
 	if (projects.length === 0) {
 		return (
@@ -40,7 +54,7 @@ export function ProjectList() {
 
 	return (
 		<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-			{projects.map((project) => (
+			{sortedProjects.map((project) => (
 				<ProjectCard
 					key={project.id}
 					id={project.id}
