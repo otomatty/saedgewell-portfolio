@@ -6,14 +6,13 @@ import {
 	CardHeader,
 	CardTitle,
 } from "../../../components/ui/card";
+import { PageHeader } from "@/components/custom/page-header";
 
 export default function ChatPage() {
 	return (
-		<div className="space-y-4">
-			<div className="flex items-center justify-between">
-				<h1 className="text-3xl font-bold">チャット</h1>
-			</div>
-			<div className="grid gap-4 md:grid-cols-[300px_1fr]">
+		<>
+			<PageHeader title="チャット" />
+			<div className="grid gap-4 md:grid-cols-[300px_1fr] container">
 				{/* チャットリスト */}
 				<Card className="h-[calc(100vh-12rem)]">
 					<CardHeader>
@@ -53,6 +52,6 @@ export default function ChatPage() {
 					</CardContent>
 				</Card>
 			</div>
-		</div>
+		</>
 	);
 }

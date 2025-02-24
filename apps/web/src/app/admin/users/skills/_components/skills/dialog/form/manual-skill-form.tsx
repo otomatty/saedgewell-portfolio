@@ -1,24 +1,24 @@
 "use client";
 
 import type { Control } from "react-hook-form";
-import type { Skill, SkillCategory } from "../../../../../../../types/skill";
+import type { Skill, SkillCategory } from "@/types/skill";
 import {
 	FormControl,
 	FormField,
 	FormItem,
 	FormLabel,
 	FormMessage,
-} from "../../../../../../../components/ui/form";
-import { Input } from "../../../../../../../components/ui/input";
-import { Textarea } from "../../../../../../../components/ui/textarea";
-import { Button } from "../../../../../../../components/ui/button";
-import { Calendar } from "../../../../../../../components/ui/calendar";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
 import {
 	Popover,
 	PopoverContent,
 	PopoverTrigger,
-} from "../../../../../../../components/ui/popover";
-import { cn } from "../../../../../../../lib/utils";
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { ja } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
@@ -28,7 +28,7 @@ import {
 	SelectItem,
 	SelectTrigger,
 	SelectValue,
-} from "../../../../../../../components/ui/select";
+} from "@/components/ui/select";
 
 export type ManualSkillFormData = {
 	name: string;

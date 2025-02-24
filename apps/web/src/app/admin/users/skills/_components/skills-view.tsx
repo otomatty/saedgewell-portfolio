@@ -2,20 +2,15 @@
 
 import { useHydrateAtoms } from "jotai/utils";
 import { useAtomValue, useSetAtom } from "jotai";
-import { skillsAtom, categoriesAtom } from "../../../../store/admin/skills";
-import type { Skill, SkillCategory } from "../../../../types/skill";
-import { DataTable } from "../../../../components/ui/data-table";
+import { skillsAtom, categoriesAtom } from "@/store/admin/skills";
+import type { Skill, SkillCategory } from "@/types/skill";
+import { DataTable } from "@/components/ui/data-table";
 import { skillColumns } from "./skills/table/columns";
 import { categoryColumns } from "./categories/table/columns";
-import { ErrorBoundary } from "../../../../components/custom/error-boundary";
-import { ErrorMessage } from "../../../../components/custom/error-message";
-import {
-	Tabs,
-	TabsContent,
-	TabsList,
-	TabsTrigger,
-} from "../../../../components/ui/tabs";
-import { useToast } from "../../../../hooks/use-toast";
+import { ErrorBoundary } from "@/components/custom/error-boundary";
+import { ErrorMessage } from "@/components/custom/error-message";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useToast } from "@/hooks/use-toast";
 import type { z } from "zod";
 import type { formSchema } from "./skills/dialog/skill-form";
 import { CreateSkillDialog } from "./skills/dialog/create-skill-dialog";

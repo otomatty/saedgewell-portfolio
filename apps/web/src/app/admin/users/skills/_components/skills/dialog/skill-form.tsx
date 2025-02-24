@@ -3,16 +3,11 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import type { Skill, SkillCategory } from "../../../../../../types/skill";
-import { Form } from "../../../../../../components/ui/form";
-import { Button } from "../../../../../../components/ui/button";
-import {
-	Tabs,
-	TabsContent,
-	TabsList,
-	TabsTrigger,
-} from "../../../../../../components/ui/tabs";
-import { useToast } from "../../../../../../hooks/use-toast";
+import type { Skill, SkillCategory } from "@/types/skill";
+import { Form } from "@/components/ui/form";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import {

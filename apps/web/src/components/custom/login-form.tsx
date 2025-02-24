@@ -2,13 +2,6 @@
 
 import { useState } from "react";
 import { Button } from "../ui/button";
-import {
-	Card,
-	CardContent,
-	CardDescription,
-	CardHeader,
-	CardTitle,
-} from "../ui/card";
 import { signInWithGoogle, signInWithGithub } from "../../_actions/auth";
 import { useToast } from "../../hooks/use-toast";
 import { Loader2 } from "lucide-react";

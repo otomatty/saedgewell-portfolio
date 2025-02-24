@@ -1,15 +1,41 @@
 "use client";
 
 import { Loader2 } from "lucide-react";
+import { Skeleton } from "../../components/ui/skeleton";
+import { Card, CardContent } from "../../components/ui/card";
 
 export default function AdminLoading() {
 	return (
-		<div className="flex min-h-screen items-center justify-center">
-			<div className="flex flex-col items-center gap-4">
-				<Loader2 className="h-8 w-8 animate-spin text-primary" />
-				<p className="text-sm text-muted-foreground">
-					管理者権限を確認しています...
-				</p>
+		<div className="container space-y-8 py-8">
+			<Skeleton className="h-10 w-48" />
+
+			<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+				{Array.from({ length: 4 }).map(() => (
+					<Skeleton key={crypto.randomUUID()} className="h-32" />
+				))}
+			</div>
+
+			<div className="grid gap-6 md:grid-cols-2">
+				<Skeleton className="h-[400px]" />
+				<Skeleton className="h-[400px]" />
+			</div>
+
+			<div className="space-y-4">
+				<div className="flex items-center justify-between">
+					<Skeleton className="h-8 w-32" />
+					<Skeleton className="h-10 w-48" />
+				</div>
+
+				<Card>
+					<CardContent className="pt-6">
+						<div className="space-y-4">
+							<Skeleton className="h-10" />
+							{Array.from({ length: 5 }).map((_, i) => (
+								<Skeleton key={crypto.randomUUID()} className="h-16" />
+							))}
+						</div>
+					</CardContent>
+				</Card>
 			</div>
 		</div>
 	);

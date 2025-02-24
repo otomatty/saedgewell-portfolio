@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { GitHubSettingsForm } from "./_components/github-settings-form";
 import { GitHubSettingsList } from "./_components/github-settings-list";
+import { PageHeader } from "@/components/custom/page-header";
 
 export const metadata: Metadata = {
 	title: "GitHub設定",
@@ -9,10 +10,12 @@ export const metadata: Metadata = {
 
 export default function GitHubSettingsPage() {
 	return (
-		<div className="container mx-auto py-6 space-y-8">
-			<h1 className="text-2xl font-bold">GitHub設定</h1>
-			<GitHubSettingsForm />
-			<GitHubSettingsList />
-		</div>
+		<>
+			<PageHeader title="GitHub設定" />
+			<div className="container mx-auto py-6 space-y-8">
+				<GitHubSettingsForm />
+				<GitHubSettingsList />
+			</div>
+		</>
 	);
 }

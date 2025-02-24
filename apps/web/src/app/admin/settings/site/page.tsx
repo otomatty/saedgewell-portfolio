@@ -20,17 +20,18 @@ export default async function SiteSettingsPage() {
 	}
 
 	return (
-		<div className="space-y-6">
+		<>
 			<PageHeader
 				title="サイト設定"
 				description="サイトの基本設定、SEO設定、機能の有効/無効を管理します。"
 			/>
-
-			<div className="grid gap-6">
-				<Suspense fallback={<div>読み込み中...</div>}>
-					<SiteSettingsForm initialSettings={settings} />
-				</Suspense>
+			<div className="space-y-6 container">
+				<div className="grid gap-6">
+					<Suspense fallback={<div>読み込み中...</div>}>
+						<SiteSettingsForm initialSettings={settings} />
+					</Suspense>
+				</div>
 			</div>
-		</div>
+		</>
 	);
 }

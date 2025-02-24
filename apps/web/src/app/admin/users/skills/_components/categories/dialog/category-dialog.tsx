@@ -1,14 +1,14 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useToast } from "../../../../../../hooks/use-toast";
-import { ResponsiveDialog } from "../../../../../../components/custom/responsive-dialog";
+import { useToast } from "@/hooks/use-toast";
+import { ResponsiveDialog } from "@/components/custom/responsive-dialog";
 import { CategoryForm } from "./category-form";
 import {
 	createSkillCategory,
 	updateSkillCategory,
-} from "../../../../../../_actions/skill-categories";
-import type { SkillCategory } from "../../../../../../types/skill";
+} from "@/_actions/skill-categories";
+import type { SkillCategory } from "@/types/skill";
 
 interface Props {
 	trigger: React.ReactNode;

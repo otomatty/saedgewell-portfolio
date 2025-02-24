@@ -1,11 +1,11 @@
 "use client";
 
-import { ResponsiveDialog } from "../../../../../../components/custom/responsive-dialog";
+import { ResponsiveDialog } from "@/components/custom/responsive-dialog";
 import { SkillForm } from "./skill-form";
-import type { SkillCategory } from "../../../../../../types/skill";
+import type { SkillCategory } from "@/types/skill";
 import type { z } from "zod";
 import type { formSchema } from "./skill-form";
-import { Button } from "../../../../../../components/ui/button";
+import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
 import { useState } from "react";
 

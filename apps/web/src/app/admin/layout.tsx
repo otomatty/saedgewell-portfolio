@@ -47,25 +47,22 @@ export default async function AdminLayout({
 }) {
 	try {
 		await requireAdmin();
+		const [profile, projects] = await Promise.all([
+			ProfileLoader(),
+			ProjectsLoader(),
+		]);
+
+		return (
+			<AdminLayoutClient profile={profile} projects={projects}>
+				<Suspense fallback={<div className="p-8">読み込み中...</div>}>
+					{children}
+				</Suspense>
+			</AdminLayoutClient>
+		);
 	} catch (error) {
 		console.error("Admin access denied:", error);
 		redirect("/");
 	}
-
-	return (
-		<Suspense
-			fallback={
-				<div className="flex min-h-screen items-center justify-center">
-					<div className="flex flex-col items-center gap-4">
-						<Skeleton className="h-8 w-8 rounded-full" />
-						<Skeleton className="h-4 w-32" />
-					</div>
-				</div>
-			}
-		>
-			<AsyncAdminLayout>{children}</AsyncAdminLayout>
-		</Suspense>
-	);
 }
 
 // 非同期データ取得を行うレイアウトコンポーネント

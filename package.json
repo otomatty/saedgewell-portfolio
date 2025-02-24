@@ -19,8 +19,5 @@
 	"engines": {
 		"node": ">=20.0.0",
 		"bun": ">=1.0.0"
-	},
-	"dependencies": {
-		"@octokit/rest": "^21.1.1"
 	}
 }

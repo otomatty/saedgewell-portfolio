@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import type { UseFormSetValue } from "react-hook-form";
-import type { SkillCategory } from "../../../../../../../types/skill";
-import { Button } from "../../../../../../../components/ui/button";
-import { Textarea } from "../../../../../../../components/ui/textarea";
-import { Label } from "../../../../../../../components/ui/label";
+import type { SkillCategory } from "@/types/skill";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Label } from "@/components/ui/label";
 import { Loader2 } from "lucide-react";
 import {
 	Select,
@@ -13,12 +13,12 @@ import {
 	SelectItem,
 	SelectTrigger,
 	SelectValue,
-} from "../../../../../../../components/ui/select";
+} from "@/components/ui/select";
 import {
 	generateSkills,
 	type GeneratedSkill,
 	type SkillCategory as SkillCategoryType,
-} from "../../../../../../../lib/gemini/skills";
+} from "@/lib/gemini/skills";
 import { SkillSuggestionCard } from "./skill-suggestion-card";
 import type { ManualSkillFormData } from "./manual-skill-form";
 

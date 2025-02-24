@@ -1,12 +1,8 @@
 "use client";
 
-import {
-	Card,
-	CardHeader,
-	CardTitle,
-} from "../../../../../../../components/ui/card";
-import { Button } from "../../../../../../../components/ui/button";
-import type { GeneratedSkill } from "../../../../../../../lib/gemini/skills";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import type { GeneratedSkill } from "@/lib/gemini/skills";
 
 interface Props extends GeneratedSkill {
 	onSelect: () => void;

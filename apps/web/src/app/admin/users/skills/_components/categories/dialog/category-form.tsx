@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import type { SkillCategory } from "../../../../../../types/skill";
+import type { SkillCategory } from "@/types/skill";
 import {
 	Form,
 	FormControl,
@@ -11,10 +11,10 @@ import {
 	FormItem,
 	FormLabel,
 	FormMessage,
-} from "../../../../../../components/ui/form";
-import { Input } from "../../../../../../components/ui/input";
-import { Textarea } from "../../../../../../components/ui/textarea";
-import { Button } from "../../../../../../components/ui/button";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 
 export const formSchema = z.object({
 	name: z.string().min(1, "必須項目です"),

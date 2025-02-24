@@ -1,9 +1,9 @@
 "use client";
 
 import type { ColumnDef } from "@tanstack/react-table";
-import type { SkillCategory } from "../../../../../../types/skill";
-import { DataTableColumnHeader } from "../../../../../../components/ui/data-table/data-table-column-header";
-import { DataTableRowActions } from "../../../../../../components/ui/data-table/data-table-row-actions";
+import type { SkillCategory } from "@/types/skill";
+import { DataTableColumnHeader } from "@/components/ui/data-table/data-table-column-header";
+import { DataTableRowActions } from "@/components/ui/data-table/data-table-row-actions";
 
 export const categoryColumns: ColumnDef<SkillCategory>[] = [
 	{

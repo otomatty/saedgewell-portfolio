@@ -1,8 +1,9 @@
 import { Suspense } from "react";
-import { getSkills } from "../../../_actions/skills";
-import { getSkillCategories } from "../../../_actions/skill-categories";
+import { getSkills } from "@/_actions/skills";
+import { getSkillCategories } from "@/_actions/skill-categories";
 import { SkillsView } from "./_components/skills-view";
-import { Skeleton } from "../../../components/ui/skeleton";
+import { Skeleton } from "@/components/ui/skeleton";
+import { PageHeader } from "@/components/custom/page-header";
 
 export const metadata = {
 	title: "スキル管理",
@@ -21,10 +22,13 @@ export default async function SkillsPage() {
 	]);
 
 	return (
-		<div className="container mx-auto py-10">
-			<Suspense fallback={<Skeleton className="h-[400px]" />}>
-				<SkillsView initialSkills={skills} initialCategories={categories} />
-			</Suspense>
-		</div>
+		<>
+			<PageHeader title="スキル管理" />
+			<div className="container mx-auto py-10">
+				<Suspense fallback={<Skeleton className="h-[400px]" />}>
+					<SkillsView initialSkills={skills} initialCategories={categories} />
+				</Suspense>
+			</div>
+		</>
 	);
 }

@@ -5,6 +5,9 @@ import { GmailAuthButton } from "../../../components/custom/gmail/auth-button";
 import { getEmails } from "../../../_actions/gmail";
 import { syncEmails } from "../../../lib/gmail/service";
 import { createClient } from "../../../lib/supabase/server";
+import { PageHeader } from "@/components/custom/page-header";
+import { ErrorBoundary } from "react-error-boundary";
+import { ErrorFallback } from "./_components/error-fallback";
 
 export default async function EmailsPage() {
 	const supabase = await createClient();
@@ -29,14 +32,15 @@ export default async function EmailsPage() {
 	const { emails } = result;
 
 	return (
-		<div className="container py-6 space-y-6">
-			<div className="flex items-center justify-between">
-				<h1 className="text-2xl font-bold">メール管理</h1>
-				<GmailAuthButton />
+		<div className="space-y-4">
+			<PageHeader title="メール管理" actions={<GmailAuthButton />} />
+			<div className="container">
+				<ErrorBoundary FallbackComponent={ErrorFallback}>
+					<Suspense fallback={<EmailListSkeleton />}>
+						<EmailList emails={emails} />
+					</Suspense>
+				</ErrorBoundary>
 			</div>
-			<Suspense fallback={<EmailListSkeleton />}>
-				<EmailList emails={emails} />
-			</Suspense>
 		</div>
 	);
 }

@@ -1,11 +1,11 @@
 "use client";
 
 import type { ColumnDef } from "@tanstack/react-table";
-import type { Skill } from "../../../../../../types/skill";
-import { DataTableColumnHeader } from "../../../../../../components/ui/data-table/data-table-column-header";
-import { DataTableRowActions } from "../../../../../../components/ui/data-table/data-table-row-actions";
+import type { Skill } from "@/types/skill";
+import { DataTableColumnHeader } from "@/components/ui/data-table/data-table-column-header";
+import { DataTableRowActions } from "@/components/ui/data-table/data-table-row-actions";
 import { SkillForm } from "../dialog/skill-form";
-import { deleteSkill } from "../../../../../../_actions/skills";
+import { deleteSkill } from "@/_actions/skills";
 
 export const skillColumns: ColumnDef<Skill>[] = [
 	{
