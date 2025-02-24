@@ -2,7 +2,7 @@
 
 # dependencies
 /node_modules
-/.pnp
+.pnp
 .pnp.*
 .yarn/*
 !.yarn/patches
@@ -11,14 +11,16 @@
 !.yarn/versions
 
 # testing
-/coverage
+coverage
 
 # next.js
-/.next/
-/out/
-
+.next
+out
+build/
+dist/
+.turbo/
 # production
-/build
+build
 
 # misc
 .DS_Store
@@ -30,8 +32,10 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# Environment Variables
+.env
+.env.*
+!.env.example
 
 # vercel
 .vercel
@@ -44,3 +48,23 @@ next-env.d.ts
 .supabase
 .zshrc
 ~
+# Package manager
+.npmrc
+.yarnrc
+.pnpm-store/
+bun.lockb
+
+# Cloudflare
+.wrangler/
+.dev.vars
+
+# Debug
+debug/
+.debug/
+
+# Temporary files
+*.log
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db

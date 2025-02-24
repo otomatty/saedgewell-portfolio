@@ -5,7 +5,7 @@ expertise:
   - Tailwind CSS
   - shadcn/ui
   - Jotai
-  - Cloudflare Pages
+  - Vercel
   - Bun
   - Supabase
 
