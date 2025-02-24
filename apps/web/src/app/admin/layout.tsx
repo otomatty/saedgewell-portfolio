@@ -14,22 +14,28 @@ export default async function AdminLayout({
 	const { data: projects, error } = await getProjects();
 
 	if (!profile) {
-		return redirect("/");
+		redirect("/");
 	}
 
 	if (error) {
 		console.error("Error fetching projects:", error);
+		// エラーが発生した場合は空の配列を使用
 	}
 
-	const formattedProjects = (projects || []).map((project) => ({
-		id: project.id,
-		name: project.name,
-		emoji: project.emoji || "📁", // デフォルトの絵文字を設定
-	}));
+	try {
+		const formattedProjects = (projects || []).map((project) => ({
+			id: project.id,
+			name: project.name,
+			emoji: project.emoji || "📁", // デフォルトの絵文字を設定
+		}));
 
-	return (
-		<AdminLayoutClient profile={profile} projects={formattedProjects}>
-			{children}
-		</AdminLayoutClient>
-	);
+		return (
+			<AdminLayoutClient profile={profile} projects={formattedProjects}>
+				{children}
+			</AdminLayoutClient>
+		);
+	} catch (e) {
+		console.error("Error in AdminLayout:", e);
+		redirect("/");
+	}
 }

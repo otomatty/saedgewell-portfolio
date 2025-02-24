@@ -1,3 +1,4 @@
+
 export type Json =
   | string
   | number
@@ -34,6 +35,48 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_users: {
+        Row: {
+          created_at: string
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      admin_users_history: {
+        Row: {
+          action: string
+          created_at: string
+          id: string
+          performed_by: string
+          user_id: string
+        }
+        Insert: {
+          action: string
+          created_at?: string
+          id?: string
+          performed_by: string
+          user_id: string
+        }
+        Update: {
+          action?: string
+          created_at?: string
+          id?: string
+          performed_by?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       audit_logs: {
         Row: {
           action: string
@@ -827,6 +870,7 @@ export type Database = {
           created_at: string | null
           id: string
           last_synced_at: string | null
+          repository: string
           updated_at: string | null
           user_id: string | null
           username: string
@@ -837,6 +881,7 @@ export type Database = {
           created_at?: string | null
           id?: string
           last_synced_at?: string | null
+          repository?: string
           updated_at?: string | null
           user_id?: string | null
           username: string
@@ -847,6 +892,7 @@ export type Database = {
           created_at?: string | null
           id?: string
           last_synced_at?: string | null
+          repository?: string
           updated_at?: string | null
           user_id?: string | null
           username?: string
@@ -2154,51 +2200,6 @@ export type Database = {
         }
         Relationships: []
       }
-      user_role_history: {
-        Row: {
-          changed_by: string | null
-          created_at: string
-          id: string
-          new_role_id: string
-          old_role_id: string | null
-          reason: string | null
-          user_id: string
-        }
-        Insert: {
-          changed_by?: string | null
-          created_at?: string
-          id?: string
-          new_role_id: string
-          old_role_id?: string | null
-          reason?: string | null
-          user_id: string
-        }
-        Update: {
-          changed_by?: string | null
-          created_at?: string
-          id?: string
-          new_role_id?: string
-          old_role_id?: string | null
-          reason?: string | null
-          user_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "user_role_history_new_role_id_fkey"
-            columns: ["new_role_id"]
-            isOneToOne: false
-            referencedRelation: "roles"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "user_role_history_old_role_id_fkey"
-            columns: ["old_role_id"]
-            isOneToOne: false
-            referencedRelation: "roles"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       user_roles: {
         Row: {
           created_at: string
@@ -2591,11 +2592,30 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      check_is_admin: {
+      add_admin_user: {
         Args: {
-          p_user_id: string
+          target_user_id: string
         }
-        Returns: boolean
+        Returns: undefined
+      }
+      check_is_admin:
+        | {
+            Args: Record<PropertyKey, never>
+            Returns: boolean
+          }
+        | {
+            Args: {
+              p_user_id: string
+            }
+            Returns: boolean
+          }
+      get_admin_users: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          id: string
+          email: string
+          created_at: string
+        }[]
       }
       handle_new_user:
         | {
@@ -2614,6 +2634,12 @@ export type Database = {
             }
             Returns: undefined
           }
+      remove_admin_user: {
+        Args: {
+          target_user_id: string
+        }
+        Returns: undefined
+      }
       sync_knowledge_projects: {
         Args: Record<PropertyKey, never>
         Returns: undefined

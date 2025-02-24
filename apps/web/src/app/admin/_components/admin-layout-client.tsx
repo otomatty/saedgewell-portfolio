@@ -1,11 +1,14 @@
 "use client";
 
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { AdminHeader } from "./header";
 import { AdminSidebar } from "./sidebar";
-import { SidebarInset, SidebarProvider } from "../../../components/ui/sidebar";
-import type { Profile } from "../../../types/profile";
-import { useAtom } from "jotai";
+import { SidebarProvider } from "../../../components/ui/sidebar";
+import { SidebarInset } from "../../../components/ui/sidebar";
 import { sidebarOpenAtom } from "../../../store/sidebar";
+import { useAtom } from "jotai";
+import type { Profile } from "../../../types/profile";
 
 interface AdminLayoutClientProps {
 	children: React.ReactNode;
@@ -23,6 +26,19 @@ export function AdminLayoutClient({
 	projects,
 }: AdminLayoutClientProps) {
 	const [open, setOpen] = useAtom(sidebarOpenAtom);
+	const router = useRouter();
+
+	useEffect(() => {
+		if (!profile || !projects) {
+			console.error("Missing required props in AdminLayoutClient");
+			router.push("/");
+			return;
+		}
+	}, [profile, projects, router]);
+
+	if (!profile || !projects) {
+		return null;
+	}
 
 	return (
 		<SidebarProvider open={open} onOpenChange={setOpen}>
