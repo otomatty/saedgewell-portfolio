@@ -101,6 +101,7 @@ export async function getProfileOnTop(): Promise<ProfileWithRole | null> {
 			updatedAt: profile?.updated_at ?? "",
 			roles,
 			role: isAdmin ? "admin" : (roles[0] ?? "user"),
+			isAdmin,
 		};
 	} catch (error) {
 		console.error("[getCurrentUserProfile] Unexpected Error:", error);
@@ -152,5 +153,6 @@ export async function getProfile(): Promise<Profile | null> {
 		createdAt: profile?.created_at ?? "",
 		updatedAt: profile?.updated_at ?? "",
 		role: roleData?.roles?.name as UserRole,
+		isAdmin: roleData?.roles?.name === "admin",
 	};
 }
