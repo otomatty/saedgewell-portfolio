@@ -87,8 +87,10 @@ export async function getProfileOnTop(): Promise<ProfileWithRole | null> {
 					name
 				)
 			`)
-			.eq("user_id", user.id)
-			.single();
+			.eq("user_id", user.id);
+
+		const roles = roleData?.map((r) => r.roles.name as UserRole) ?? [];
+		const isAdmin = roles.includes("admin");
 
 		return {
 			id: profile?.id ?? "",
@@ -97,7 +99,8 @@ export async function getProfileOnTop(): Promise<ProfileWithRole | null> {
 			avatarUrl: profile?.avatar_url ?? "",
 			createdAt: profile?.created_at ?? "",
 			updatedAt: profile?.updated_at ?? "",
-			role: roleData?.roles?.name as UserRole,
+			roles,
+			role: isAdmin ? "admin" : (roles[0] ?? "user"),
 		};
 	} catch (error) {
 		console.error("[getCurrentUserProfile] Unexpected Error:", error);

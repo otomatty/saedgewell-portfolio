@@ -10,10 +10,15 @@ import type { UserRole } from "../types/auth";
  */
 export async function signInWithGoogle() {
 	const supabase = await createClient();
+	const redirectUrl =
+		process.env.NODE_ENV === "production"
+			? `${process.env.NEXT_PUBLIC_PROD_URL}/auth/callback`
+			: `${process.env.NEXT_PUBLIC_DEV_URL}/auth/callback`;
+
 	const { data, error } = await supabase.auth.signInWithOAuth({
 		provider: "google",
 		options: {
-			redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`,
+			redirectTo: redirectUrl,
 			queryParams: {
 				access_type: "offline",
 				prompt: "consent",

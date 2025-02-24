@@ -13,4 +13,7 @@ export interface Profile {
 	role: UserRole;
 }
 
-export type ProfileWithRole = Profile;
+export interface ProfileWithRole extends Profile {
+	roles: UserRole[];
+	role: UserRole;
+}

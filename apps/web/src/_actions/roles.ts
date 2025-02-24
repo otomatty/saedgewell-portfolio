@@ -17,8 +17,7 @@ export const getUserRoles = cache(async (userId: string): Promise<string[]> => {
         user_id
       )
     `)
-		.eq("user_roles.user_id", userId)
-		.neq("name", "admin");
+		.eq("user_roles.user_id", userId);
 
 	return roles?.map((r) => r.name) ?? [];
 });
@@ -31,33 +30,72 @@ export const isAdmin = cache(async (): Promise<boolean> => {
 	try {
 		const supabase = await createClient();
 
-		// 現在のセッション情報をログ
+		// 現在のセッション情報を取得
 		const {
 			data: { user },
 			error: userError,
 		} = await supabase.auth.getUser();
+
+		if (userError) {
+			console.error("Error getting user:", userError);
+			return false;
+		}
 
 		if (!user) {
 			console.log("No user session found");
 			return false;
 		}
 
-		// RPCの実行と結果のログ
-		const { data, error } = await supabase.rpc("check_is_admin");
+		// RPCの実行と結果のログ（最大3回リトライ）
+		let retryCount = 0;
+		const maxRetries = 3;
+		let lastError = null;
 
-		if (error) {
-			console.error("Error checking admin status:", {
-				message: error.message,
-				code: error.code,
-				details: error.details,
-				hint: error.hint,
-			});
-			return false;
+		while (retryCount < maxRetries) {
+			try {
+				const { data, error } = await supabase.rpc("check_is_admin");
+
+				if (error) {
+					console.error(
+						`Error checking admin status (attempt ${retryCount + 1}):`,
+						{
+							message: error.message,
+							code: error.code,
+							details: error.details,
+							hint: error.hint,
+						},
+					);
+					lastError = error;
+					retryCount++;
+					if (retryCount < maxRetries) {
+						// 指数バックオフで待機
+						await new Promise((resolve) =>
+							setTimeout(resolve, 2 ** retryCount * 1000),
+						);
+						continue;
+					}
+				}
+
+				return !!data;
+			} catch (error) {
+				console.error(
+					`Unexpected error in isAdmin (attempt ${retryCount + 1}):`,
+					error,
+				);
+				lastError = error;
+				retryCount++;
+				if (retryCount < maxRetries) {
+					await new Promise((resolve) =>
+						setTimeout(resolve, 2 ** retryCount * 1000),
+					);
+				}
+			}
 		}
 
-		return data;
+		console.error("Failed to check admin status after all retries:", lastError);
+		return false;
 	} catch (error) {
-		console.error("Unexpected error in isAdmin:", error);
+		console.error("Critical error in isAdmin:", error);
 		return false;
 	}
 });
@@ -164,10 +202,17 @@ export async function removeAdmin(userId: string) {
  * @throws {Error} 管理者権限がない場合
  */
 export async function requireAdmin() {
-	const isUserAdmin = await isAdmin();
+	try {
+		const isUserAdmin = await isAdmin();
 
-	if (!isUserAdmin) {
-		console.log("Access denied: User is not an admin");
-		throw new Error("管理者権限がありません");
+		if (!isUserAdmin) {
+			console.log("Access denied: User is not an admin");
+			throw new Error("管理者権限がありません");
+		}
+	} catch (error) {
+		console.error("Error in requireAdmin:", error);
+		throw new Error(
+			"管理者権限の確認中にエラーが発生しました。しばらく待ってから再度お試しください。",
+		);
 	}
 }

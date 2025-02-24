@@ -70,8 +70,8 @@ export default function UsersPage() {
 							</TableRow>
 						</TableHeader>
 						<TableBody>
-							{Array.from({ length: 5 }).map((_, i) => (
-								<TableRow key={`user-skeleton-${crypto.randomUUID()}`}>
+							{[...Array(5)].map((_, i) => (
+								<TableRow key={`user-skeleton-${i + 1}`}>
 									<TableCell>
 										<Skeleton className="h-4 w-32" />
 									</TableCell>

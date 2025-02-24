@@ -39,8 +39,8 @@ export default function ContactsPage() {
 							</TableRow>
 						</TableHeader>
 						<TableBody>
-							{Array.from({ length: 5 }).map((_, i) => (
-								<TableRow key={`contact-skeleton-${crypto.randomUUID()}`}>
+							{[...Array(5)].map((_, i) => (
+								<TableRow key={`contact-skeleton-${i + 1}`}>
 									<TableCell>
 										<Skeleton className="h-4 w-24" />
 									</TableCell>
