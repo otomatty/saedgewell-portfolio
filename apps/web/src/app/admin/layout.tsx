@@ -8,26 +8,36 @@ import { Skeleton } from "../../components/ui/skeleton";
 
 // プロジェクトデータを取得するコンポーネント
 async function ProjectsLoader() {
-	const { data: projects, error } = await getProjects();
-	if (error) {
-		console.error("Error fetching projects:", error);
+	try {
+		const { data: projects, error } = await getProjects();
+		if (error) {
+			console.error("Error fetching projects:", error);
+			return [];
+		}
+		return (projects || []).map((project) => ({
+			id: project.id,
+			name: project.name,
+			emoji: project.emoji || "📁",
+		}));
+	} catch (error) {
+		console.error("Unexpected error in ProjectsLoader:", error);
+		return [];
 	}
-
-	return (projects || []).map((project) => ({
-		id: project.id,
-		name: project.name,
-		emoji: project.emoji || "📁",
-	}));
 }
 
 // プロフィールデータを取得するコンポーネント
 async function ProfileLoader() {
-	const profile = await getProfile();
-	if (!profile) {
-		console.error("Profile not found");
+	try {
+		const profile = await getProfile();
+		if (!profile) {
+			console.error("Profile not found");
+			redirect("/");
+		}
+		return profile;
+	} catch (error) {
+		console.error("Error in ProfileLoader:", error);
 		redirect("/");
 	}
-	return profile;
 }
 
 export default async function AdminLayout({
@@ -60,29 +70,43 @@ export default async function AdminLayout({
 
 // 非同期データ取得を行うレイアウトコンポーネント
 async function AsyncAdminLayout({ children }: { children: React.ReactNode }) {
-	const [profile, projects] = await Promise.all([
-		ProfileLoader(),
-		ProjectsLoader(),
-	]);
+	try {
+		const [profile, projects] = await Promise.all([
+			ProfileLoader(),
+			ProjectsLoader(),
+		]);
 
-	return (
-		<AdminLayoutClient profile={profile} projects={projects}>
-			<Suspense
-				fallback={
-					<div className="p-8">
-						<div className="space-y-4">
-							<Skeleton className="h-8 w-[250px]" />
-							<Skeleton className="h-4 w-[350px]" />
-							<div className="grid gap-4">
-								<Skeleton className="h-[125px]" />
-								<Skeleton className="h-[125px]" />
+		return (
+			<AdminLayoutClient profile={profile} projects={projects}>
+				<Suspense
+					fallback={
+						<div className="p-8">
+							<div className="space-y-4">
+								<Skeleton className="h-8 w-[250px]" />
+								<Skeleton className="h-4 w-[350px]" />
+								<div className="grid gap-4">
+									<Skeleton className="h-[125px]" />
+									<Skeleton className="h-[125px]" />
+								</div>
 							</div>
 						</div>
-					</div>
-				}
-			>
-				{children}
-			</Suspense>
-		</AdminLayoutClient>
-	);
+					}
+				>
+					{children}
+				</Suspense>
+			</AdminLayoutClient>
+		);
+	} catch (error) {
+		console.error("Error in AsyncAdminLayout:", error);
+		return (
+			<div className="flex min-h-screen items-center justify-center">
+				<div className="text-center">
+					<p className="text-lg font-semibold">エラーが発生しました</p>
+					<p className="text-sm text-muted-foreground">
+						管理画面の読み込み中にエラーが発生しました。
+					</p>
+				</div>
+			</div>
+		);
+	}
 }

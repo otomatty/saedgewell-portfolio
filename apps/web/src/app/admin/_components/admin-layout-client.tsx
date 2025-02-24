@@ -31,7 +31,7 @@ export function AdminLayoutClient({
 	useEffect(() => {
 		if (!profile || !projects) {
 			console.error("Missing required props in AdminLayoutClient");
-			router.push("/");
+			router.replace("/");
 			return;
 		}
 	}, [profile, projects, router]);
