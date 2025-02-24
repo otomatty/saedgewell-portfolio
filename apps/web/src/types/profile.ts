@@ -11,9 +11,9 @@ export interface Profile {
 	createdAt: string;
 	updatedAt: string;
 	role: UserRole;
+	isAdmin: boolean;
 }
 
 export interface ProfileWithRole extends Profile {
 	roles: UserRole[];
-	role: UserRole;
 }

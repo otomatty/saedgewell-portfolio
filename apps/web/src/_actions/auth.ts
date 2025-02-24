@@ -116,19 +116,18 @@ export async function upsertProfile(userId: string, email: string) {
  * 現在のユーザーが管理者かどうかを確認します
  */
 export async function checkIsAdmin(): Promise<boolean> {
-	const supabase = await createClient();
-	const {
-		data: { user },
-	} = await supabase.auth.getUser();
+	try {
+		const supabase = await createClient();
+		const { data, error } = await supabase.rpc("check_is_admin");
 
-	if (!user) {
+		if (error) {
+			console.error("Error checking admin status:", error);
+			return false;
+		}
+
+		return !!data;
+	} catch (error) {
+		console.error("Unexpected error in checkIsAdmin:", error);
 		return false;
 	}
-
-	// サーバーサイドでロールを確認
-	const { data: adminRole } = await supabase.rpc("check_is_admin", {
-		p_user_id: user.id,
-	});
-
-	return !!adminRole;
 }
